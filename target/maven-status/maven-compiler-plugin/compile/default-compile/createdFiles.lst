@@ -1,0 +1,12 @@
+com\mcore\managers\QueueManager.class
+com\mcore\managers\TPAManager$1.class
+com\mcore\managers\MenuManager$CustomHolder.class
+com\mcore\commands\BackCommand.class
+com\mcore\managers\DuelManager.class
+com\mcore\managers\TPAManager.class
+com\mcore\managers\CombatManager.class
+com\mcore\managers\MenuManager.class
+com\mcore\commands\AdminCommands.class
+com\mcore\mCore.class
+com\mcore\commands\ChatClearCommand.class
+com\mcore\managers\ConfigManager.class

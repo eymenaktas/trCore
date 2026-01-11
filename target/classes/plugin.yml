@@ -1,0 +1,40 @@
+name: mCore
+version: 3.1
+main: com.mcore.mCore
+api-version: 1.16
+authors: [maskecikk]
+
+commands:
+  mcore:
+    permission: mcore.admin
+  clearchat:
+    permission: mcore.clearchat
+  rtpqueue:
+  rtpduel:
+  tpa:
+  tpahere:
+  tpacancel:
+  tpaevent:
+  back:
+    permission: mcore.back
+  # Yeni Admin Komutları
+  gmc:
+    permission: mcore.gamemodec
+  gms:
+    permission: mcore.gamemodes
+  gmsp:
+    permission: mcore.gamemodesp
+  fly:
+    permission: mcore.fly
+  walkspeed:
+    permission: mcore.speed
+  flyspeed:
+    permission: mcore.speed
+  lightning:
+    permission: mcore.lightning
+  sudo:
+    permission: mcore.sudo
+  playerinfo:
+    permission: mcore.playerinfo
+  alts:
+    permission: mcore.alts

@@ -1,0 +1,73 @@
+no-perm: "<red>Buna Yetkin Bulunmamaktadır.</red>"
+reload: "<green>Plugin yenilendi.</green>"
+
+# --- ADMIN KOMUTLARI ---
+admin:
+  gamemode: "<green>Oyun modun <yellow>%mode% <green>olarak değiştirildi."
+  gamemode-other: "<green>%target% adlı oyuncunun modu <yellow>%mode% <green>yapıldı."
+  fly: "<green>Uçuş modu: <yellow>%status%</yellow>"
+  fly-other: "<green>%target% için uçuş: <yellow>%status%</yellow>"
+  speed: "<green>Hızın <yellow>%speed% <green>olarak ayarlandı."
+  lightning: "<green>Şimşek çaktırıldı!"
+  sudo: "<green>%target% adına işlem yapıldı: <gray>%command%"
+  # PlayerInfo formatı (Liste şeklinde)
+  playerinfo:
+    - "<dark_gray>-------------------------"
+    - "<green>İsim:</green> %player%"
+    - "<green>UUID:</green> %uuid%"
+    - "<green>IP:</green> %ip%"
+    - "<green>Can:</green> %health%/%maxhealth%"
+    - "<green>Konum:</green> %loc%"
+    - "<green>Ping:</green> %ping%ms"
+    - "<dark_gray>-------------------------"
+  alts:
+    searching: "<gray>Hesaplar aranıyor..."
+    found: "<green>Aynı IP'deki oyuncular (%count%): <gray>%players%"
+    none: "<red>Başka hesap bulunamadı."
+
+# --- DİĞER MESAJLAR ---
+clearchat:
+  broadcast: "<#3bd1ae>Sohbet <green>%player%</green> <#3bd1ae>tarafından temizlendi.</#3bd1ae>"
+  admin-bypass: "<gray>(Yönetici olduğun için sohbetin silinmedi)</gray>"
+
+back:
+  teleporting: "<green>Önceki konumuna dönülüyor...</green>"
+  no-location: "<red>Dönecek bir konumun yok.</red>"
+
+combat:
+  tagged: "<red>Savaştayken oyundan çıktığı için %player% öldürüldü!</red>"
+  opponent-quit: "<gray>Rakip oyundan kaçtı! <green>Kazandın.</green>"
+
+invsee:
+  opened: "<green>%target% envanteri açıldı.</green>"
+  offline: "<red>Bu özellik şu an sadece aktif oyuncular için güvenlidir.</red>"
+
+tpa:
+  sent: "<green>%target%</green> Adlı Oyuncuya Işınlanma İsteği Gönderildi"
+  received: "<green>%player%</green> sana ışınlanmak isteği gönderdi. <newline>                             <click:run_command:/tpa internal_accept %player%><green>[ᴋᴀʙᴜʟ ᴇᴛ]</green></click>"
+  received-here: "<#8cffc9>%player%</#8cffc9> seni yanına ışınlanma isteği gönderdi. <newline>                             <click:run_command:/tpahere internal_accept %player%><#8cffc9>[ᴋᴀʙᴜʟ ᴇᴛ]</#8cffc9></click>"
+  accepted: "İstek kabul edildi. <green>%time% sn </green>içinde ışınlanılıyor..."
+  denied: "<red>İstek reddedildi.</red>"
+  cancelled: "<red>İstek iptal edildi.</red>"
+  no-request: "<red>İstek bulunamadı.</red>"
+  already-sent: "<red>Zaten bekleyen bir isteğin var. Önce iptal et: /tpacancel</red>"
+  usage: "<red>Kullanım: /tpa <oyuncu></red>"
+
+tpa-event:
+  broadcast: "<gradient:#f26fdf:#d74ddb><bold>%player%</gradient> <white>Herkesi Yanına Çağırıyor</white> <newline>                             <click:run_command:/tpaevent join><light_purple>[ᴋᴀʙᴜʟ ᴇᴛ]</light_purple></click>"
+  started: "<light_purple>Etkinlik başlatıldı! (2 Dakika)</light_purple>"
+  joined: "<light_purple>Etkinliğe katıldın!</light_purple>"
+  already-joined: "<red>Zaten katıldın.</red>"
+  ended: "<red>Etkinlik süresi doldu.</red>"
+  cancelled: "<red>Etkinlik yetkili tarafından iptal edildi.</red>"
+
+rtp-queue:
+  joined: "<green>1v1 Sırasına girdin! <gray>(%current%/2)</green>"
+  left: "<red>Sıradan çıktın.</red>"
+  matched: "Eşleşme bulundu! <green>Işınlanılıyor...</green>"
+  already-in: "<red>Zaten sıradasın.</red>"
+  timeout: "<red>Eşleşme bulunamadı, sıradan çıkarıldın.</red>"
+
+rtp-duel:
+  sent: "<#cdf26f>%target%</#cdf26f> adlı kişisine düello isteği atıldı."
+  received: "<#cdf26f>%player%</#cdf26f> seninle düello atmak istiyor. <newline>                             <click:run_command:/rtpduel internal_accept %player%><#cdf26f>[ᴋᴀʙᴜʟ ᴇᴛ]</#cdf26f></click>"

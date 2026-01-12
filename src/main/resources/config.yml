@@ -1,10 +1,6 @@
-# ==========================================
-#           mCore AYARLAR DOSYASI
-# ==========================================
-
+# mCore AYARLAR
 prefix: "<bold><gradient:#29f057:#41f06a>mCore</gradient></bold> <dark_gray>»</dark_gray> "
 
-# Actionbar
 actionbar:
   enabled: true
   interval: 30
@@ -12,7 +8,6 @@ actionbar:
   disabled-worlds:
     - "world"
 
-# Combat Log
 combat-log:
   enabled: true
   duration: 15
@@ -23,20 +18,15 @@ combat-log:
     - "world_the_end"
     - "orman"
 
-# ÖLÜM KOMUTLARI (YENİ)
-# Oyuncu belirli bir dünyada ölünce konsol tarafından komut çalıştırılır.
 death-commands:
   enabled: true
   worlds:
-    # Dünya Adı:
-    #   - "komut"
     world:
       - "eco take %player% 100"
       - "msg %player% <red>Öldüğün için paranızdan kesinti yapıldı."
     orman:
       - "msg %player% <yellow>Ormanda öldün!"
 
-# Kill Efektleri
 kill-system:
   enabled: true
   prevent-self-kill-title: true
@@ -46,23 +36,19 @@ kill-system:
     main: ""
     sub: "<green><bold>+1 ᴋɪʟʟ</bold></green>"
 
-# TPA Ayarları
 tpa:
   timeout: 60
   delay: 3
   countdown-sound: "BLOCK_NOTE_BLOCK_HAT"
   sound-on-request: "BLOCK_NOTE_BLOCK_PLING"
   sound-on-teleport: "ENTITY_ENDERMAN_TELEPORT"
-  # Etkinlik süresi (Saniye)
   event-duration: 120
 
-# World Change
 world-change:
   enabled: true
   commands:
     spawn: "kit1"
 
-# RTP Queue (1v1 Sıra)
 rtp-queue:
   world: "sand"
   min-range: 100
@@ -74,10 +60,9 @@ rtp-queue:
   match-sound: "ENTITY_PLAYER_LEVELUP"
   command: "kit1"
 
-# RTP Duel (İstekli Düello) (GÜNCELLENDİ)
 rtp-duel:
-  world: "sand"          # Düello dünyası
-  min-range: 500         # Koordinat aralığı
+  world: "sand"
+  min-range: 500
   max-range: 5000
   distance-between-players: 10
   command: "kit1"

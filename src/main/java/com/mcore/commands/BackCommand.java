@@ -1,12 +1,6 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package com.mcore.commands;
 
-import com.mcore.mCore;
-import com.mcore.listeners.PlayerListener;
+import com.mcore.managers.BackManager;
 import com.mcore.utils.CC;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -16,30 +10,30 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class BackCommand implements CommandExecutor {
-    private final mCore plugin;
+    private final BackManager backManager;
 
-    public BackCommand(mCore p) {
-        this.plugin = p;
+    public BackCommand(BackManager backManager) {
+        this.backManager = backManager;
     }
 
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
-        if (sender instanceof Player player) {
-            if (!player.hasPermission("mcore.back")) {
-                player.sendMessage(CC.get("no-perm"));
-                return true;
-            } else {
-                Location loc = (Location)PlayerListener.lastLocations.remove(player.getUniqueId());
-                if (loc == null) {
-                    player.sendMessage(CC.get("back.no-location"));
-                    return true;
-                } else {
-                    player.teleport(loc);
-                    player.sendMessage(CC.get("back.teleporting"));
-                    return true;
-                }
-            }
-        } else {
+    @Override
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if (!(sender instanceof Player)) return true;
+        Player player = (Player) sender;
+
+        if (!player.hasPermission("mcore.back")) {
+            player.sendMessage(CC.get("no-perm"));
             return true;
         }
+
+        Location lastLoc = backManager.popLastLocation(player);
+        if (lastLoc == null) {
+            player.sendMessage(CC.get("back.no-location"));
+            return true;
+        }
+
+        player.teleport(lastLoc);
+        player.sendMessage(CC.get("back.teleporting"));
+        return true;
     }
 }

@@ -1,204 +1,278 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package com.mcore.managers;
 
 import com.mcore.mCore;
 import com.mcore.utils.CC;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
+
+import java.util.*;
 
 public class TPAManager {
     private final mCore plugin;
     private final MenuManager menuManager;
-    private final Map<UUID, UUID> requests = new HashMap();
-    private final Map<UUID, UUID> activeSender = new HashMap();
-    private final Map<UUID, String> types = new HashMap();
-    private boolean isEventActive = false;
-    private long eventStartTime = 0L;
-    private Player eventHost;
+
+    private final Map<UUID, UUID> requests = new HashMap<>();
+    private final Map<UUID, UUID> activeSender = new HashMap<>();
+    private final Map<UUID, String> types = new HashMap<>();
+
+    // --- TPA EVENT SİSTEMİ (GÜNCELLENDİ) ---
+    // Etkinlik sahibi (Host) -> Etkinlik Konumu
+    private final Map<UUID, Location> activeEvents = new HashMap<>();
+    // Etkinlik sahibi (Host) -> Zamanlayıcı
+    private final Map<UUID, BukkitTask> eventTimers = new HashMap<>();
+    // Etkinlik sahibi (Host) -> Katılan Oyuncuların Listesi (Set)
+    // Bu sayede her etkinliğin katılımcı listesi kendine özel olur.
+    private final Map<UUID, Set<UUID>> eventParticipants = new HashMap<>();
 
     public TPAManager(mCore plugin, MenuManager menuManager) {
         this.plugin = plugin;
         this.menuManager = menuManager;
     }
 
+    // --- TPA GÖNDERME ---
     public void send(Player sender, Player target, String type) {
-        if (this.activeSender.containsKey(sender.getUniqueId())) {
+        if (activeSender.containsKey(sender.getUniqueId())) {
             sender.sendMessage(CC.get("tpa.already-sent"));
-        } else {
-            this.requests.put(target.getUniqueId(), sender.getUniqueId());
-            this.activeSender.put(sender.getUniqueId(), target.getUniqueId());
-            this.types.put(target.getUniqueId(), type);
-            sender.sendMessage(CC.get("tpa.sent", "%target%", target.getName()));
-            this.playSound(target, "tpa.sound-on-request");
-            if (type.equals("tpa")) {
-                target.sendMessage(CC.get("tpa.received", "%player%", sender.getName()));
-            } else {
-                target.sendMessage(CC.get("tpa.received-here", "%player%", sender.getName()));
+            return;
+        }
+        requests.put(target.getUniqueId(), sender.getUniqueId());
+        activeSender.put(sender.getUniqueId(), target.getUniqueId());
+        types.put(target.getUniqueId(), type);
+
+        sender.sendMessage(CC.get("tpa.sent", "%target%", target.getName()));
+        playSound(target, "tpa.sound-on-request");
+
+        if (type.equals("tpa")) target.sendMessage(CC.get("tpa.received", "%player%", sender.getName()));
+        else target.sendMessage(CC.get("tpa.received-here", "%player%", sender.getName()));
+
+        int timeout = plugin.getConfig().getInt("tpa.timeout");
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            if (activeSender.containsKey(sender.getUniqueId()) && activeSender.get(sender.getUniqueId()).equals(target.getUniqueId())) {
+                cancel(sender);
+                sender.sendMessage(CC.get("tpa.timeout"));
             }
-
-            int timeout = this.plugin.getConfig().getInt("tpa.timeout");
-            Bukkit.getScheduler().runTaskLater(this.plugin, () -> {
-                if (this.activeSender.containsKey(sender.getUniqueId()) && ((UUID)this.activeSender.get(sender.getUniqueId())).equals(target.getUniqueId())) {
-                    this.cancel(sender);
-                    sender.sendMessage(CC.get("tpa.timeout"));
-                }
-
-            }, (long)timeout * 20L);
-        }
+        }, timeout * 20L);
     }
 
+    // --- TPA İPTAL ---
     public void cancel(Player sender) {
-        if (!this.activeSender.containsKey(sender.getUniqueId())) {
+        if (!activeSender.containsKey(sender.getUniqueId())) {
             sender.sendMessage(CC.get("tpa.no-request"));
-        } else {
-            UUID targetId = (UUID)this.activeSender.remove(sender.getUniqueId());
-            this.requests.remove(targetId);
-            this.types.remove(targetId);
-            sender.sendMessage(CC.get("tpa.cancelled"));
+            return;
         }
+        UUID targetId = activeSender.remove(sender.getUniqueId());
+        if (targetId != null) {
+            requests.remove(targetId);
+            types.remove(targetId);
+        }
+        sender.sendMessage(CC.get("tpa.cancelled"));
     }
 
+    // --- MENÜ AÇMA ---
     public void openAcceptMenu(Player target) {
-        if (!this.requests.containsKey(target.getUniqueId())) {
+        if (!requests.containsKey(target.getUniqueId())) {
             target.sendMessage(CC.get("tpa.no-request"));
-        } else {
-            UUID senderId = (UUID)this.requests.get(target.getUniqueId());
-            Player sender = Bukkit.getPlayer(senderId);
-            String type = (String)this.types.get(target.getUniqueId());
-            String menuId = type.equals("tpa") ? "tpa-accept-menu" : "tpa-here-accept-menu";
-            target.openInventory(this.menuManager.create(menuId, sender));
+            return;
         }
+        UUID senderId = requests.get(target.getUniqueId());
+        if (senderId == null) return;
+
+        Player sender = Bukkit.getPlayer(senderId);
+        String type = types.get(target.getUniqueId());
+        String menuId = type.equals("tpa") ? "tpa-accept-menu" : "tpa-here-accept-menu";
+
+        org.bukkit.inventory.Inventory inv = menuManager.create(menuId, sender);
+        if (inv == null) {
+            target.sendMessage(CC.parse("<red>Hata: Menü dosyası bulunamadı."));
+            return;
+        }
+        target.openInventory(inv);
     }
 
-    public void accept(final Player target) {
-        UUID senderId = (UUID)this.requests.remove(target.getUniqueId());
-        this.activeSender.remove(senderId);
-        final String type = (String)this.types.remove(target.getUniqueId());
+    // --- KABUL ET ---
+    public void accept(Player target) {
+        if (!requests.containsKey(target.getUniqueId())) {
+            target.sendMessage(CC.get("tpa.no-request"));
+            return;
+        }
+        UUID senderId = requests.remove(target.getUniqueId());
+        if (senderId == null) return;
+
+        activeSender.remove(senderId);
+        String type = types.remove(target.getUniqueId());
         target.closeInventory();
-        final Player sender = Bukkit.getPlayer(senderId);
-        if (sender != null) {
-            final int delay = this.plugin.getConfig().getInt("tpa.delay");
-            String timeStr = String.valueOf(delay);
-            target.sendMessage(CC.get("tpa.accepted", "%time%", timeStr));
-            sender.sendMessage(CC.get("tpa.accepted", "%time%", timeStr));
-            (new BukkitRunnable() {
-                int count = delay;
 
-                public void run() {
-                    if (this.count <= 0) {
-                        TPAManager.this.playSound(sender, "tpa.sound-on-teleport");
-                        TPAManager.this.playSound(target, "tpa.sound-on-teleport");
-                        if (type.equals("tpa")) {
-                            if (sender.isOnline() && target.isOnline()) {
-                                sender.teleport(target);
-                            }
-                        } else if (sender.isOnline() && target.isOnline()) {
-                            target.teleport(sender);
-                        }
-
-                        this.cancel();
-                    } else {
-                        TPAManager.this.playSound(sender, "tpa.countdown-sound");
-                        TPAManager.this.playSound(target, "tpa.countdown-sound");
-                        --this.count;
-                    }
-                }
-            }).runTaskTimer(this.plugin, 0L, 20L);
+        Player sender = Bukkit.getPlayer(senderId);
+        if (sender == null || !sender.isOnline()) {
+            target.sendMessage(CC.parse("<red>İstek gönderen oyuncu oyundan çıkmış."));
+            return;
         }
+
+        int delay = plugin.getConfig().getInt("tpa.delay");
+        String timeStr = String.valueOf(delay);
+        target.sendMessage(CC.get("tpa.accepted", "%time%", timeStr));
+        sender.sendMessage(CC.get("tpa.accepted", "%time%", timeStr));
+
+        new BukkitRunnable() {
+            int count = delay;
+            @Override
+            public void run() {
+                if (!sender.isOnline() || !target.isOnline()) {
+                    this.cancel();
+                    return;
+                }
+                if (count <= 0) {
+                    playSound(sender, "tpa.sound-on-teleport");
+                    playSound(target, "tpa.sound-on-teleport");
+                    if (type != null && type.equals("tpa")) sender.teleport(target);
+                    else target.teleport(sender);
+                    this.cancel();
+                    return;
+                }
+                playSound(sender, "tpa.countdown-sound");
+                playSound(target, "tpa.countdown-sound");
+                count--;
+            }
+        }.runTaskTimer(plugin, 0L, 20L);
     }
 
+    // --- REDDET ---
     public void deny(Player target) {
-        UUID senderId = (UUID)this.requests.remove(target.getUniqueId());
-        this.activeSender.remove(senderId);
-        this.types.remove(target.getUniqueId());
+        if (!requests.containsKey(target.getUniqueId())) {
+            target.sendMessage(CC.get("tpa.no-request"));
+            return;
+        }
+        UUID senderId = requests.remove(target.getUniqueId());
+        if (senderId != null) {
+            activeSender.remove(senderId);
+            Player sender = Bukkit.getPlayer(senderId);
+            if (sender != null) sender.sendMessage(CC.get("tpa.denied"));
+        }
+        types.remove(target.getUniqueId());
         target.closeInventory();
         target.sendMessage(CC.get("tpa.denied"));
-        Player sender = Bukkit.getPlayer(senderId);
-        if (sender != null) {
-            sender.sendMessage(CC.get("tpa.denied"));
-        }
-
     }
 
+    // --- TPA EVENT (DÜZELTİLDİ) ---
     public void startEvent(Player admin) {
-        if (this.isEventActive) {
-            admin.sendMessage(CC.get("tpa.event-already-active"));
+        if (activeEvents.containsKey(admin.getUniqueId())) {
+            admin.sendMessage(CC.get("tpa-event.already-active"));
+            return;
+        }
+
+        // Eventi başlat
+        activeEvents.put(admin.getUniqueId(), admin.getLocation());
+        // Bu host için boş bir katılımcı listesi oluştur
+        eventParticipants.put(admin.getUniqueId(), new HashSet<>());
+
+        admin.sendMessage(CC.get("tpa-event.started"));
+
+        Component broadcastMsg = CC.get("tpa-event.broadcast", "%player%", admin.getName())
+                .replaceText(b -> b.match("/tpaevent join").replacement("/tpaevent join " + admin.getName()));
+
+        plugin.getServer().sendMessage(broadcastMsg);
+
+        // Otomatik bitirme zamanlayıcısı
+        BukkitTask task = Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            stopEvent(admin, false);
+        }, 120 * 20L);
+        eventTimers.put(admin.getUniqueId(), task);
+    }
+
+    public void joinEvent(Player player, String hostName) {
+        UUID targetHostUUID = null;
+
+        // Eğer isim girilmediyse ve sadece 1 tane aktif event varsa ona sok
+        if (hostName == null) {
+            if (activeEvents.size() == 1) {
+                targetHostUUID = activeEvents.keySet().iterator().next();
+            }
         } else {
-            this.eventHost = admin;
-            this.eventStartTime = System.currentTimeMillis();
-            this.isEventActive = true;
-            admin.sendMessage(CC.get("tpa.event-location-set"));
-            Component broadcastMsg = CC.get("tpa.event-broadcast", "%player%", admin.getName());
-            this.plugin.getServer().sendMessage(broadcastMsg);
+            Player host = Bukkit.getPlayer(hostName);
+            if (host != null) targetHostUUID = host.getUniqueId();
+        }
+
+        // Etkinlik yoksa veya bittiyse
+        if (targetHostUUID == null || !activeEvents.containsKey(targetHostUUID)) {
+            player.sendMessage(CC.get("tpa-event.expired"));
+            return;
+        }
+
+        // OYUNCU BU ÖZEL ETKİNLİĞE ZATEN KATILMIŞ MI?
+        Set<UUID> participants = eventParticipants.get(targetHostUUID);
+        if (participants != null && participants.contains(player.getUniqueId())) {
+            player.sendMessage(CC.get("tpa-event.already-joined"));
+            return; // Sadece bu evente katılamaz, başkasına katılabilir.
+        }
+
+        // Katılım işlemi
+        Location targetLoc = activeEvents.get(targetHostUUID);
+        player.teleport(targetLoc);
+
+        // Listeye ekle
+        if (participants != null) participants.add(player.getUniqueId());
+
+        player.sendMessage(CC.get("tpa-event.joined"));
+        playSound(player, "tpa.sound-on-teleport");
+    }
+
+    public void stopEvent(Player admin, boolean force) {
+        if (!activeEvents.containsKey(admin.getUniqueId()) && !force) return;
+
+        // Haritalardan sil (Bu sayede oyuncular tekrar katılabilir veya "zaten katıldın" hatası almaz)
+        activeEvents.remove(admin.getUniqueId());
+        eventParticipants.remove(admin.getUniqueId()); // LİSTE SİLİNDİĞİ İÇİN SIFIRLANIR
+
+        if (eventTimers.containsKey(admin.getUniqueId())) {
+            eventTimers.get(admin.getUniqueId()).cancel();
+            eventTimers.remove(admin.getUniqueId());
+        }
+
+        if (!force) {
+            plugin.getServer().sendMessage(CC.get("tpa-event.ended"));
         }
     }
 
-    public void joinEvent(Player player) {
-        if (this.isEventActive && this.eventHost != null && this.eventHost.isOnline()) {
-            long timeElapsed = System.currentTimeMillis() - this.eventStartTime;
-            if (timeElapsed > 120000L) {
-                player.sendMessage(CC.get("tpa.event-expired"));
-            } else {
-                player.teleport(this.eventHost.getLocation());
-                player.sendMessage(CC.get("tpa.event-joined"));
-                this.playSound(player, "tpa.sound-on-teleport");
-            }
-        } else {
-            player.sendMessage(CC.get("tpa.no-active-event"));
+    public void stopAllEvents() {
+        for (BukkitTask task : eventTimers.values()) {
+            if (task != null) task.cancel();
         }
-    }
-
-    public void stopEvent(boolean force) {
-        if (this.isEventActive || force) {
-            this.isEventActive = false;
-            this.eventHost = null;
-            this.eventStartTime = 0L;
-            if (!force) {
-                this.plugin.getServer().sendMessage(CC.get("tpa.event-ended"));
-            }
-
-        }
+        eventTimers.clear();
+        activeEvents.clear();
+        eventParticipants.clear(); // Herkesi özgür bırak
     }
 
     public void cleanup(Player player) {
         UUID uuid = player.getUniqueId();
-        if (this.activeSender.containsKey(uuid)) {
-            UUID targetId = (UUID)this.activeSender.remove(uuid);
-            this.requests.remove(targetId);
-            this.types.remove(targetId);
+        // TPA İsteklerini temizle
+        if (activeSender.containsKey(uuid)) {
+            UUID targetId = activeSender.remove(uuid);
+            requests.remove(targetId);
+            types.remove(targetId);
         }
-
-        if (this.requests.containsKey(uuid)) {
-            UUID senderId = (UUID)this.requests.remove(uuid);
-            this.activeSender.remove(senderId);
+        if (requests.containsKey(uuid)) {
+            UUID senderId = requests.remove(uuid);
+            activeSender.remove(senderId);
         }
-
-        if (this.isEventActive && this.eventHost != null && this.eventHost.getUniqueId().equals(uuid)) {
-            this.stopEvent(true);
+        // Eğer event sahibi çıkarsa etkinliği bitir
+        if (activeEvents.containsKey(uuid)) {
+            stopEvent(player, true);
         }
-
     }
 
+    @SuppressWarnings("deprecation")
     private void playSound(Player player, String configPath) {
-        if (player != null && player.isOnline()) {
-            String soundName = this.plugin.getConfig().getString(configPath);
-            if (soundName != null && !soundName.isEmpty()) {
-                try {
-                    player.playSound(player.getLocation(), Sound.valueOf(soundName.toUpperCase()), 1.0F, 1.0F);
-                } catch (IllegalArgumentException var5) {
-                }
-            }
-
+        if (player == null || !player.isOnline()) return;
+        String soundName = plugin.getConfig().getString(configPath);
+        if (soundName != null && !soundName.isEmpty()) {
+            try {
+                player.playSound(player.getLocation(), Sound.valueOf(soundName.toUpperCase()), 1.0f, 1.0f);
+            } catch (IllegalArgumentException e) {}
         }
     }
 }

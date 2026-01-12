@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package com.mcore.listeners;
 
 import com.mcore.mCore;
@@ -32,30 +27,22 @@ public class ConnectionListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         String name = e.getPlayer().getName();
         String ip = e.getPlayer().getAddress().getHostString();
-        this.plugin.getConfigManager().savePlayerIP(name, ip);
-        FileConfiguration data = this.plugin.getConfigManager().getPlayerData();
+        plugin.getConfigManager().savePlayerIP(name, ip);
+
+        // Hızları geri yükle
+        FileConfiguration data = plugin.getConfigManager().getPlayerData();
         if (data.contains("speeds." + name)) {
-            float walk = (float)data.getDouble("speeds." + name + ".walk", (double)0.2F);
-            float fly = (float)data.getDouble("speeds." + name + ".fly", (double)0.1F);
+            float walk = (float) data.getDouble("speeds." + name + ".walk", 0.2f);
+            float fly = (float) data.getDouble("speeds." + name + ".fly", 0.1f);
             e.getPlayer().setWalkSpeed(walk);
             e.getPlayer().setFlySpeed(fly);
         }
-
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        if (this.tpaManager != null) {
-            this.tpaManager.cleanup(e.getPlayer());
-        }
-
-        if (this.queueManager != null) {
-            this.queueManager.cleanup(e.getPlayer());
-        }
-
-        if (this.duelManager != null) {
-            this.duelManager.cleanup(e.getPlayer());
-        }
-
+        if (tpaManager != null) tpaManager.cleanup(e.getPlayer());
+        if (queueManager != null) queueManager.cleanup(e.getPlayer());
+        if (duelManager != null) duelManager.cleanup(e.getPlayer());
     }
 }

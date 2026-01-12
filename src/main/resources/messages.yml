@@ -1,7 +1,6 @@
 no-perm: "<red>Buna Yetkin Bulunmamaktadır.</red>"
 reload: "<green>Plugin yenilendi.</green>"
 
-# --- ADMIN KOMUTLARI ---
 admin:
   gamemode: "<green>Oyun modun <yellow>%mode% <green>olarak değiştirildi."
   gamemode-other: "<green>%target% adlı oyuncunun modu <yellow>%mode% <green>yapıldı."
@@ -9,23 +8,26 @@ admin:
   fly-other: "<green>%target% için uçuş: <yellow>%status%</yellow>"
   speed: "<green>Hızın <yellow>%speed% <green>olarak ayarlandı."
   lightning: "<green>Şimşek çaktırıldı!"
+  lightning-target: "<green>%target% üzerine şimşek çaktırıldı!"
   sudo: "<green>%target% adına işlem yapıldı: <gray>%command%"
-  # PlayerInfo formatı (Liste şeklinde)
   playerinfo:
-    - "<dark_gray>-------------------------"
-    - "<green>İsim:</green> %player%"
-    - "<green>UUID:</green> %uuid%"
-    - "<green>IP:</green> %ip%"
-    - "<green>Can:</green> %health%/%maxhealth%"
-    - "<green>Konum:</green> %loc%"
-    - "<green>Ping:</green> %ping%ms"
-    - "<dark_gray>-------------------------"
+    not-found: "<red>Bu oyuncu daha önce sunucuya girmemiş."
+    lines:
+      - "<dark_gray>-------------------------"
+      - "<green>İsim:</green> %player%"
+      - "<green>Durum:</green> %status%"
+      - "<green>UUID:</green> %uuid%"
+      - "<green>IP:</green> %ip%"
+      - "<green>Can:</green> %health%"
+      - "<green>Konum:</green> %loc%"
+      - "<dark_gray>-------------------------"
   alts:
     searching: "<gray>Hesaplar aranıyor..."
-    found: "<green>Aynı IP'deki oyuncular (%count%): <gray>%players%"
-    none: "<red>Başka hesap bulunamadı."
+    format: "<green>%player% <gray>adlı oyuncunun hesapları: <white>%list%"
+    self-suffix: " <gray>(Kendisi)</gray>"
+    separator: "<gray>, </gray>"
+    not-found: "<red>Bu oyuncuya ait veri bulunamadı."
 
-# --- DİĞER MESAJLAR ---
 clearchat:
   broadcast: "<#3bd1ae>Sohbet <green>%player%</green> <#3bd1ae>tarafından temizlendi.</#3bd1ae>"
   admin-bypass: "<gray>(Yönetici olduğun için sohbetin silinmedi)</gray>"
@@ -52,14 +54,16 @@ tpa:
   no-request: "<red>İstek bulunamadı.</red>"
   already-sent: "<red>Zaten bekleyen bir isteğin var. Önce iptal et: /tpacancel</red>"
   usage: "<red>Kullanım: /tpa <oyuncu></red>"
+  timeout: "<red>İstek zaman aşımına uğradı.</red>"
 
 tpa-event:
-  broadcast: "<gradient:#f26fdf:#d74ddb><bold>%player%</gradient> <white>Herkesi Yanına Çağırıyor</white> <newline>                             <click:run_command:/tpaevent join><light_purple>[ᴋᴀʙᴜʟ ᴇᴛ]</light_purple></click>"
+  broadcast: "<gradient:#f26fdf:#d74ddb><bold>%player%</gradient> <white>Herkesi Yanına Çağırıyor</white> <newline>                             <click:run_command:/tpaevent join ><light_purple>[ᴋᴀʙᴜʟ ᴇᴛ]</light_purple></click>"
   started: "<light_purple>Etkinlik başlatıldı! (2 Dakika)</light_purple>"
   joined: "<light_purple>Etkinliğe katıldın!</light_purple>"
   already-joined: "<red>Zaten katıldın.</red>"
   ended: "<red>Etkinlik süresi doldu.</red>"
-  cancelled: "<red>Etkinlik yetkili tarafından iptal edildi.</red>"
+  already-active: "<red>Zaten aktif bir etkinlik var.</red>"
+  expired: "<red>Etkinlik süresi doldu veya aktif değil.</red>"
 
 rtp-queue:
   joined: "<green>1v1 Sırasına girdin! <gray>(%current%/2)</green>"

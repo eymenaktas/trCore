@@ -1,16 +1,11 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package com.mcore.listeners;
 
 import com.mcore.mCore;
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 public class WorldChangeListener implements Listener {
     private final mCore plugin;
@@ -20,17 +15,16 @@ public class WorldChangeListener implements Listener {
     }
 
     @EventHandler
-    public void onChange(PlayerChangedWorldEvent e) {
-        if (this.plugin.getConfig().getBoolean("world-change.enabled")) {
-            ConfigurationSection sec = this.plugin.getConfig().getConfigurationSection("world-change.commands");
-            if (sec != null) {
-                String toWorld = e.getPlayer().getWorld().getName();
-                if (sec.contains(toWorld)) {
-                    String cmd = sec.getString(toWorld).replace("%player%", e.getPlayer().getName());
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
-                }
-            }
+    public void onJoin(PlayerJoinEvent e) { execute(e.getPlayer()); }
 
+    @EventHandler
+    public void onChange(PlayerChangedWorldEvent e) { execute(e.getPlayer()); }
+
+    private void execute(Player p) {
+        if (!plugin.getConfig().getBoolean("world-change.enabled")) return;
+        String cmd = plugin.getConfig().getString("world-change.commands.spawn");
+        if (cmd != null && !cmd.isEmpty()) {
+            p.performCommand(cmd);
         }
     }
 }

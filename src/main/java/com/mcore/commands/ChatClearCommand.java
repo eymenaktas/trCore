@@ -1,4 +1,10 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.mcore.commands;
+
 import com.mcore.mCore;
 import com.mcore.utils.CC;
 import net.kyori.adventure.text.Component;
@@ -11,26 +17,31 @@ import org.jetbrains.annotations.NotNull;
 
 public class ChatClearCommand implements CommandExecutor {
     private final mCore plugin;
-    public ChatClearCommand(mCore p) { plugin = p; }
 
-    @Override
+    public ChatClearCommand(mCore p) {
+        this.plugin = p;
+    }
+
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission("mcore.clearchat")) {
             sender.sendMessage(CC.get("no-perm"));
             return true;
-        }
+        } else {
+            Component blank = Component.text(" ");
 
-        Component blank = Component.text(" ");
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (!p.hasPermission("mcore.admin")) {
-                for (int i = 0; i < 100; i++) p.sendMessage(blank);
-            } else {
-                p.sendMessage(CC.get("clearchat.admin-bypass"));
+            for(Player p : Bukkit.getOnlinePlayers()) {
+                if (!p.hasPermission("mcore.admin")) {
+                    for(int i = 0; i < 100; ++i) {
+                        p.sendMessage(blank);
+                    }
+                } else {
+                    p.sendMessage(CC.get("clearchat.admin-bypass"));
+                }
+
+                p.sendMessage(CC.get("clearchat.broadcast", "%player%", sender.getName()));
             }
 
-            // HATA BURADAYDI: CC.get içine argüman olarak taşıdık
-            p.sendMessage(CC.get("clearchat.broadcast", "%player%", sender.getName()));
+            return true;
         }
-        return true;
     }
 }

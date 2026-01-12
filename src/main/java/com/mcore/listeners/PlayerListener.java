@@ -1,11 +1,20 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.mcore.listeners;
+
 import com.mcore.mCore;
 import com.mcore.managers.CombatManager;
 import com.mcore.utils.CC;
+import java.util.HashMap;
+import java.util.UUID;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -14,88 +23,111 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import org.bukkit.projectiles.ProjectileSource;
 
 public class PlayerListener implements Listener {
     private final mCore plugin;
     private final CombatManager combatManager;
-    public static final HashMap<UUID, Location> lastLocations = new HashMap<>();
+    public static final HashMap<UUID, Location> lastLocations = new HashMap();
 
     public PlayerListener(mCore plugin, CombatManager combatManager) {
         this.plugin = plugin;
         this.combatManager = combatManager;
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(
+            priority = EventPriority.HIGHEST,
+            ignoreCancelled = true
+    )
     public void onCombat(EntityDamageByEntityEvent e) {
-        if (!plugin.getConfig().getBoolean("combat-log.enabled")) return;
-        if (e.getEntity() instanceof Player victim) {
-            Player attacker = null;
-            if (e.getDamager() instanceof Player p) attacker = p;
-            else if (e.getDamager() instanceof Projectile proj && proj.getShooter() instanceof Player p) attacker = p;
+        if (this.plugin.getConfig().getBoolean("combat-log.enabled")) {
+            Entity var3 = e.getEntity();
+            if (var3 instanceof Player) {
+                Player victim = (Player)var3;
+                Player attacker = null;
+                Entity var7 = e.getDamager();
+                if (var7 instanceof Player) {
+                    Player p = (Player)var7;
+                    attacker = p;
+                } else {
+                    var7 = e.getDamager();
+                    if (var7 instanceof Projectile) {
+                        Projectile proj = (Projectile)var7;
+                        ProjectileSource var10 = proj.getShooter();
+                        if (var10 instanceof Player) {
+                            Player p = (Player)var10;
+                            attacker = p;
+                        }
+                    }
+                }
 
-            if (attacker != null && !attacker.equals(victim)) {
-                combatManager.tag(victim, attacker);
-                combatManager.tag(attacker, victim);
+                if (attacker != null && !attacker.equals(victim)) {
+                    this.combatManager.tag(victim, attacker);
+                    this.combatManager.tag(attacker, victim);
+                }
             }
+
         }
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
-        if (plugin.getConfig().getBoolean("combat-log.enabled") && plugin.getConfig().getBoolean("combat-log.kill-on-quit") && combatManager.isInCombat(p)) {
-            Player attacker = combatManager.getLastAttacker(p);
-            p.setHealth(0);
-            Bukkit.broadcast(CC.get("combat.tagged", "%player%", p.getName()));
+        if (this.plugin.getConfig().getBoolean("combat-log.enabled") && this.plugin.getConfig().getBoolean("combat-log.kill-on-quit") && this.combatManager.isInCombat(p)) {
+            Player attacker = this.combatManager.getLastAttacker(p);
+            p.setHealth((double)0.0F);
+            Bukkit.broadcast(CC.get("combat.tagged", new String[]{"%player%", p.getName()}));
             if (attacker != null && attacker.isOnline()) {
-                attacker.sendMessage(CC.get("combat.opponent-quit"));
-                combatManager.removeTag(attacker);
+                attacker.sendMessage(CC.get("combat.opponent-quit", new String[0]));
+                this.combatManager.removeTag(attacker);
             }
-            combatManager.removeTag(p);
+
+            this.combatManager.removeTag(p);
         }
+
     }
 
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player victim = e.getEntity();
         lastLocations.put(victim.getUniqueId(), victim.getLocation());
-
-        if (combatManager.isInCombat(victim)) {
-            Player attacker = combatManager.getLastAttacker(victim);
-            combatManager.removeTag(victim);
-            if (attacker != null) combatManager.removeTag(attacker);
+        if (this.combatManager.isInCombat(victim)) {
+            Player attacker = this.combatManager.getLastAttacker(victim);
+            this.combatManager.removeTag(victim);
+            if (attacker != null) {
+                this.combatManager.removeTag(attacker);
+            }
         }
 
-        // Ölüm Komutları
-        if (plugin.getConfig().getBoolean("death-commands.enabled")) {
+        if (this.plugin.getConfig().getBoolean("death-commands.enabled")) {
             String w = victim.getWorld().getName();
-            List<String> cmds = plugin.getConfig().getStringList("death-commands.worlds." + w);
-            for (String cmd : cmds) {
+
+            for(String cmd : this.plugin.getConfig().getStringList("death-commands.worlds." + w)) {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%player%", victim.getName()));
             }
         }
 
-        if (!plugin.getConfig().getBoolean("kill-system.enabled")) return;
-        Player killer = victim.getKiller();
-        if (killer == null) return;
-        if (killer.equals(victim) && plugin.getConfig().getBoolean("kill-system.prevent-self-kill-title")) return;
+        if (this.plugin.getConfig().getBoolean("kill-system.enabled")) {
+            Player killer = victim.getKiller();
+            if (killer != null) {
+                if (!killer.equals(victim) || !this.plugin.getConfig().getBoolean("kill-system.prevent-self-kill-title")) {
+                    if (this.plugin.getConfig().getBoolean("kill-system.title.enabled")) {
+                        String main = this.plugin.getConfig().getString("kill-system.title.main").replace("%victim%", victim.getName());
+                        String sub = this.plugin.getConfig().getString("kill-system.title.sub").replace("%victim%", victim.getName());
+                        killer.showTitle(Title.title(CC.parse(main), CC.parse(sub)));
+                    }
 
-        if (plugin.getConfig().getBoolean("kill-system.title.enabled")) {
-            String main = plugin.getConfig().getString("kill-system.title.main").replace("%victim%", victim.getName());
-            String sub = plugin.getConfig().getString("kill-system.title.sub").replace("%victim%", victim.getName());
-            killer.showTitle(Title.title(CC.parse(main), CC.parse(sub)));
-        }
+                    try {
+                        String soundName = this.plugin.getConfig().getString("kill-system.sound");
+                        if (soundName != null && !soundName.isEmpty()) {
+                            Sound sound = Sound.valueOf(soundName.toUpperCase());
+                            killer.playSound(killer.getLocation(), sound, 1.0F, 1.0F);
+                        }
+                    } catch (IllegalArgumentException var7) {
+                    }
 
-        // GÜNCELLENDİ: Güvenli Ses Çalma
-        try {
-            String soundName = plugin.getConfig().getString("kill-system.sound");
-            if (soundName != null && !soundName.isEmpty()) {
-                Sound sound = Sound.valueOf(soundName.toUpperCase());
-                killer.playSound(killer.getLocation(), sound, 1f, 1f);
+                }
             }
-        } catch (IllegalArgumentException ignored) {}
+        }
     }
 }

@@ -1,5 +1,10 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.mcore.commands;
-import com.mcore.mCore;
+
 import com.mcore.managers.DuelManager;
 import com.mcore.utils.CC;
 import org.bukkit.Bukkit;
@@ -10,35 +15,40 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class RTPDuelCommand implements CommandExecutor {
-    private final mCore plugin;
     private final DuelManager duelManager;
 
-    public RTPDuelCommand(mCore p, DuelManager d) { plugin = p; duelManager = d; }
+    public RTPDuelCommand(DuelManager duelManager) {
+        this.duelManager = duelManager;
+    }
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player player)) return true;
-
-        if (args.length > 0 && args[0].equals("internal_accept")) {
-            duelManager.openAcceptMenu(player);
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if (!(sender instanceof Player player)) {
             return true;
-        }
-
-        if (args.length == 0) {
+        } else if (args.length == 0) {
             player.sendMessage(CC.parse("<red>Kullanım: /rtpduel <oyuncu>"));
             return true;
-        }
-
-        Player target = Bukkit.getPlayer(args[0]);
-        if (target != null) {
-            if (target.equals(player)) {
-                player.sendMessage(CC.parse("<red>Kendinle düello atamazsın."));
+        } else if (args[0].equalsIgnoreCase("accept")) {
+            this.duelManager.accept(player);
+            return true;
+        } else if (args[0].equalsIgnoreCase("deny")) {
+            this.duelManager.remove(player);
+            player.sendMessage(CC.get("tpa.denied", new String[0]));
+            return true;
+        } else if (args[0].equals("internal_accept")) {
+            this.duelManager.openAcceptMenu(player);
+            return true;
+        } else {
+            Player target = Bukkit.getPlayer(args[0]);
+            if (target == null) {
+                player.sendMessage(CC.parse("<red>Oyuncu bulunamadı."));
+                return true;
+            } else if (player.equals(target)) {
+                player.sendMessage(CC.parse("<red>Kendine düello atamazsın."));
+                return true;
+            } else {
+                this.duelManager.invite(player, target);
                 return true;
             }
-            duelManager.invite(player, target);
-        } else {
-            player.sendMessage(CC.parse("<red>Oyuncu bulunamadı."));
         }
-        return true;
     }
 }

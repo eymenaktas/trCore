@@ -1,59 +1,65 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.mcore;
 
-import com.mcore.commands.*;
+import com.mcore.commands.AdminCommands;
+import com.mcore.commands.TPACommand;
 import com.mcore.listeners.ConnectionListener;
 import com.mcore.listeners.PlayerListener;
-import com.mcore.managers.*;
+import com.mcore.managers.CombatManager;
+import com.mcore.managers.ConfigManager;
+import com.mcore.managers.DuelManager;
+import com.mcore.managers.MenuManager;
+import com.mcore.managers.QueueManager;
+import com.mcore.managers.TPAManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class mCore extends JavaPlugin {
-
-    private static mCore instance; // CC hatası için gerekli
+    private static mCore instance;
     private ConfigManager configManager;
     private MenuManager menuManager;
     private TPAManager tpaManager;
     private QueueManager queueManager;
     private DuelManager duelManager;
-    private CombatManager combatManager; // PlayerListener için gerekli
+    private CombatManager combatManager;
 
-    @Override
     public void onEnable() {
         instance = this;
-
-        // Config
-        configManager = new ConfigManager(this);
-        configManager.loadConfig(); // ConfigManager içine bu metodu ekleyeceğiz
-        configManager.loadMessages(); // ConfigManager içine bu metodu ekleyeceğiz
-
-        // Managers
-        // Sıralama önemlidir!
-        menuManager = new MenuManager(this); // Hata çözümü: this eklendi
-        combatManager = new CombatManager(this); // PlayerListener için önce bu lazım
-        tpaManager = new TPAManager(this, menuManager);
-        queueManager = new QueueManager(this);
-        duelManager = new DuelManager(this, menuManager); // Hata çözümü: menuManager eklendi
-
-        // Commands
-        getCommand("admin").setExecutor(new AdminCommands(this));
-        getCommand("tpa").setExecutor(new TPACommand(this, tpaManager));
-        getCommand("tpahere").setExecutor(new TPACommand(this, tpaManager));
-        getCommand("tpacancel").setExecutor(new TPACommand(this, tpaManager));
-        getCommand("tpaevent").setExecutor(new TPACommand(this, tpaManager));
-
-        // Listeners
-        getServer().getPluginManager().registerEvents(new ConnectionListener(this, tpaManager, queueManager, duelManager), this);
-        getServer().getPluginManager().registerEvents(new PlayerListener(this, combatManager), this); // Hata çözümü: combatManager eklendi
-        getServer().getPluginManager().registerEvents(menuManager, this); // Hata çözümü: MenuManager Listener implement etmeli
-
-        getLogger().info("mCore aktif edildi!");
+        this.configManager = new ConfigManager(this);
+        this.configManager.loadConfig();
+        this.configManager.loadMessages();
+        this.menuManager = new MenuManager(this);
+        this.combatManager = new CombatManager(this);
+        this.tpaManager = new TPAManager(this, this.menuManager);
+        this.queueManager = new QueueManager(this);
+        this.duelManager = new DuelManager(this, this.menuManager);
+        this.getCommand("admin").setExecutor(new AdminCommands(this));
+        this.getCommand("tpa").setExecutor(new TPACommand(this, this.tpaManager));
+        this.getCommand("tpahere").setExecutor(new TPACommand(this, this.tpaManager));
+        this.getCommand("tpacancel").setExecutor(new TPACommand(this, this.tpaManager));
+        this.getCommand("tpaevent").setExecutor(new TPACommand(this, this.tpaManager));
+        this.getServer().getPluginManager().registerEvents(new ConnectionListener(this, this.tpaManager, this.queueManager, this.duelManager), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerListener(this, this.combatManager), this);
+        this.getServer().getPluginManager().registerEvents(this.menuManager, this);
+        this.getLogger().info("mCore aktif edildi!");
     }
 
-    @Override
     public void onDisable() {
-        if (tpaManager != null) tpaManager.stopEvent(true);
-        getLogger().info("mCore devre disi birakildi!");
+        if (this.tpaManager != null) {
+            this.tpaManager.stopEvent(true);
+        }
+
+        this.getLogger().info("mCore devre disi birakildi!");
     }
 
-    public static mCore getInstance() { return instance; } // CC hatası için
-    public ConfigManager getConfigManager() { return configManager; }
+    public static mCore getInstance() {
+        return instance;
+    }
+
+    public ConfigManager getConfigManager() {
+        return this.configManager;
+    }
 }

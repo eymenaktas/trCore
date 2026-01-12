@@ -1,10 +1,14 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.mcore.managers;
 
 import com.mcore.mCore;
+import java.io.File;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-
-import java.io.File;
 
 public class ConfigManager {
     private final mCore plugin;
@@ -15,29 +19,25 @@ public class ConfigManager {
         this.plugin = plugin;
     }
 
-    // --- EKSİK OLAN METOD BURASI ---
-    // MCoreCommand reload yaparken bu metodu çağırıyor
-    public void load() {
-        loadConfig();
-        loadMessages();
-    }
-    // --------------------------------
-
     public void loadConfig() {
-        plugin.saveDefaultConfig();
-        plugin.reloadConfig();
+        this.plugin.saveDefaultConfig();
+        this.plugin.reloadConfig();
     }
 
     public void loadMessages() {
-        messagesFile = new File(plugin.getDataFolder(), "messages.yml");
-        if (!messagesFile.exists()) {
-            plugin.saveResource("messages.yml", false);
+        this.messagesFile = new File(this.plugin.getDataFolder(), "messages.yml");
+        if (!this.messagesFile.exists()) {
+            this.plugin.saveResource("messages.yml", false);
         }
-        messagesConfig = YamlConfiguration.loadConfiguration(messagesFile);
+
+        this.messagesConfig = YamlConfiguration.loadConfiguration(this.messagesFile);
     }
 
     public FileConfiguration getMessages() {
-        if (messagesConfig == null) loadMessages();
-        return messagesConfig;
+        if (this.messagesConfig == null) {
+            this.loadMessages();
+        }
+
+        return this.messagesConfig;
     }
 }

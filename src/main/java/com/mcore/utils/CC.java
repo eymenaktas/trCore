@@ -1,34 +1,59 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.mcore.utils;
+
 import com.mcore.mCore;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.ChatColor;
 
 public class CC {
-    private static final MiniMessage mm = MiniMessage.miniMessage();
+    private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
+
+    public static Component get(String path, String... replacements) {
+        String message = mCore.getInstance().getConfigManager().getMessages().getString(path);
+        if (message == null) {
+            return Component.text("Mesaj bulunamadı: " + path);
+        } else {
+            if (!path.startsWith("admin.playerinfo")) {
+                String prefix = mCore.getInstance().getConfig().getString("prefix", "");
+                message = prefix + message;
+            }
+
+            for(int i = 0; i < replacements.length; i += 2) {
+                if (i + 1 < replacements.length) {
+                    String target = replacements[i];
+                    String replacement = replacements[i + 1];
+                    if (replacement != null) {
+                        message = message.replace(target, replacement);
+                    }
+                }
+            }
+
+            return parse(message);
+        }
+    }
 
     public static Component parse(String text) {
-        if (text == null) return Component.empty();
-        return mm.deserialize(text);
+        text = ChatColor.translateAlternateColorCodes('&', text);
+        text = translateHexColorCodes(text);
+        return MiniMessage.miniMessage().deserialize(text);
     }
 
-    public static Component get(String path) {
-        return get(path, null, null);
-    }
+    private static String translateHexColorCodes(String message) {
+        Matcher matcher = HEX_PATTERN.matcher(message);
+        StringBuilder buffer = new StringBuilder(message.length() + 32);
 
-    public static Component get(String path, String placeholder, String value) {
-        FileConfiguration config = mCore.getInstance().getConfig();
-        FileConfiguration messages = mCore.getInstance().getConfigManager().getMessages();
-
-        String prefix = config.getString("prefix", ""); // Configden prefix'i al
-        String msg = messages.getString(path);
-
-        if (msg == null) return parse(prefix + "<red>Mesaj yok: " + path);
-
-        String finalMsg = prefix + msg;
-        if (placeholder != null && value != null) {
-            finalMsg = finalMsg.replace(placeholder, value);
+        while(matcher.find()) {
+            String group = matcher.group(1);
+            matcher.appendReplacement(buffer, "<#" + group + ">");
         }
-        return mm.deserialize(finalMsg);
+
+        return matcher.appendTail(buffer).toString();
     }
 }

@@ -20,13 +20,10 @@ public class TPAManager {
     private final Map<UUID, UUID> activeSender = new HashMap<>();
     private final Map<UUID, String> types = new HashMap<>();
 
-    // --- TPA EVENT SİSTEMİ (GÜNCELLENDİ) ---
-    // Etkinlik sahibi (Host) -> Etkinlik Konumu
+    // Multi-Event
     private final Map<UUID, Location> activeEvents = new HashMap<>();
-    // Etkinlik sahibi (Host) -> Zamanlayıcı
     private final Map<UUID, BukkitTask> eventTimers = new HashMap<>();
-    // Etkinlik sahibi (Host) -> Katılan Oyuncuların Listesi (Set)
-    // Bu sayede her etkinliğin katılımcı listesi kendine özel olur.
+    // Host -> Katılımcılar Listesi
     private final Map<UUID, Set<UUID>> eventParticipants = new HashMap<>();
 
     public TPAManager(mCore plugin, MenuManager menuManager) {
@@ -34,7 +31,7 @@ public class TPAManager {
         this.menuManager = menuManager;
     }
 
-    // --- TPA GÖNDERME ---
+    // --- SEND ---
     public void send(Player sender, Player target, String type) {
         if (activeSender.containsKey(sender.getUniqueId())) {
             sender.sendMessage(CC.get("tpa.already-sent"));
@@ -59,7 +56,7 @@ public class TPAManager {
         }, timeout * 20L);
     }
 
-    // --- TPA İPTAL ---
+    // --- CANCEL ---
     public void cancel(Player sender) {
         if (!activeSender.containsKey(sender.getUniqueId())) {
             sender.sendMessage(CC.get("tpa.no-request"));
@@ -73,7 +70,7 @@ public class TPAManager {
         sender.sendMessage(CC.get("tpa.cancelled"));
     }
 
-    // --- MENÜ AÇMA ---
+    // --- MENU ---
     public void openAcceptMenu(Player target) {
         if (!requests.containsKey(target.getUniqueId())) {
             target.sendMessage(CC.get("tpa.no-request"));
@@ -94,7 +91,7 @@ public class TPAManager {
         target.openInventory(inv);
     }
 
-    // --- KABUL ET ---
+    // --- ACCEPT ---
     public void accept(Player target) {
         if (!requests.containsKey(target.getUniqueId())) {
             target.sendMessage(CC.get("tpa.no-request"));
@@ -141,7 +138,7 @@ public class TPAManager {
         }.runTaskTimer(plugin, 0L, 20L);
     }
 
-    // --- REDDET ---
+    // --- DENY ---
     public void deny(Player target) {
         if (!requests.containsKey(target.getUniqueId())) {
             target.sendMessage(CC.get("tpa.no-request"));
@@ -158,26 +155,24 @@ public class TPAManager {
         target.sendMessage(CC.get("tpa.denied"));
     }
 
-    // --- TPA EVENT (DÜZELTİLDİ) ---
+    // --- TPA EVENT ---
     public void startEvent(Player admin) {
         if (activeEvents.containsKey(admin.getUniqueId())) {
             admin.sendMessage(CC.get("tpa-event.already-active"));
             return;
         }
-
-        // Eventi başlat
         activeEvents.put(admin.getUniqueId(), admin.getLocation());
-        // Bu host için boş bir katılımcı listesi oluştur
-        eventParticipants.put(admin.getUniqueId(), new HashSet<>());
+        eventParticipants.put(admin.getUniqueId(), new HashSet<>()); // Katılımcı listesini başlat
 
+        // "Etkinlik Başladı (2dk)" mesajı SADECE admine gider.
         admin.sendMessage(CC.get("tpa-event.started"));
 
+        // Bu mesaj HERKESE gider (Davet Linki)
         Component broadcastMsg = CC.get("tpa-event.broadcast", "%player%", admin.getName())
                 .replaceText(b -> b.match("/tpaevent join").replacement("/tpaevent join " + admin.getName()));
 
         plugin.getServer().sendMessage(broadcastMsg);
 
-        // Otomatik bitirme zamanlayıcısı
         BukkitTask task = Bukkit.getScheduler().runTaskLater(plugin, () -> {
             stopEvent(admin, false);
         }, 120 * 20L);
@@ -186,8 +181,6 @@ public class TPAManager {
 
     public void joinEvent(Player player, String hostName) {
         UUID targetHostUUID = null;
-
-        // Eğer isim girilmediyse ve sadece 1 tane aktif event varsa ona sok
         if (hostName == null) {
             if (activeEvents.size() == 1) {
                 targetHostUUID = activeEvents.keySet().iterator().next();
@@ -197,20 +190,18 @@ public class TPAManager {
             if (host != null) targetHostUUID = host.getUniqueId();
         }
 
-        // Etkinlik yoksa veya bittiyse
         if (targetHostUUID == null || !activeEvents.containsKey(targetHostUUID)) {
             player.sendMessage(CC.get("tpa-event.expired"));
             return;
         }
 
-        // OYUNCU BU ÖZEL ETKİNLİĞE ZATEN KATILMIŞ MI?
+        // Katılımcı kontrolü (Sadece bu evente özel)
         Set<UUID> participants = eventParticipants.get(targetHostUUID);
         if (participants != null && participants.contains(player.getUniqueId())) {
             player.sendMessage(CC.get("tpa-event.already-joined"));
-            return; // Sadece bu evente katılamaz, başkasına katılabilir.
+            return;
         }
 
-        // Katılım işlemi
         Location targetLoc = activeEvents.get(targetHostUUID);
         player.teleport(targetLoc);
 
@@ -224,9 +215,12 @@ public class TPAManager {
     public void stopEvent(Player admin, boolean force) {
         if (!activeEvents.containsKey(admin.getUniqueId()) && !force) return;
 
-        // Haritalardan sil (Bu sayede oyuncular tekrar katılabilir veya "zaten katıldın" hatası almaz)
+        // Katılımcı listesini al (Silmeden önce!)
+        Set<UUID> participants = eventParticipants.get(admin.getUniqueId());
+
+        // Verileri temizle
         activeEvents.remove(admin.getUniqueId());
-        eventParticipants.remove(admin.getUniqueId()); // LİSTE SİLİNDİĞİ İÇİN SIFIRLANIR
+        eventParticipants.remove(admin.getUniqueId());
 
         if (eventTimers.containsKey(admin.getUniqueId())) {
             eventTimers.get(admin.getUniqueId()).cancel();
@@ -234,7 +228,20 @@ public class TPAManager {
         }
 
         if (!force) {
-            plugin.getServer().sendMessage(CC.get("tpa-event.ended"));
+            // 1. Etkinliği başlatana (Host) mesaj at
+            if (admin.isOnline()) {
+                admin.sendMessage(CC.get("tpa-event.ended"));
+            }
+
+            // 2. Sadece o etkinliğe katılanlara mesaj at (Sunucu geneline gitmez)
+            if (participants != null) {
+                for (UUID pUuid : participants) {
+                    Player p = Bukkit.getPlayer(pUuid);
+                    if (p != null && p.isOnline()) {
+                        p.sendMessage(CC.get("tpa-event.ended"));
+                    }
+                }
+            }
         }
     }
 
@@ -244,12 +251,11 @@ public class TPAManager {
         }
         eventTimers.clear();
         activeEvents.clear();
-        eventParticipants.clear(); // Herkesi özgür bırak
+        eventParticipants.clear();
     }
 
     public void cleanup(Player player) {
         UUID uuid = player.getUniqueId();
-        // TPA İsteklerini temizle
         if (activeSender.containsKey(uuid)) {
             UUID targetId = activeSender.remove(uuid);
             requests.remove(targetId);
@@ -259,7 +265,6 @@ public class TPAManager {
             UUID senderId = requests.remove(uuid);
             activeSender.remove(senderId);
         }
-        // Eğer event sahibi çıkarsa etkinliği bitir
         if (activeEvents.containsKey(uuid)) {
             stopEvent(player, true);
         }

@@ -1,8 +1,10 @@
 name: mCore
-version: 4.5
+version: 4.8
 main: com.mcore.mCore
-api-version: 1.20
-authors: [TheMaskee]
+api-version: 1.21
+authors: [ maskecik ]
+description: en iyi sunucuya en iyi core
+website: https://github.com/themaskee
 depend: [PlaceholderAPI]
 softdepend: [Vault]
 

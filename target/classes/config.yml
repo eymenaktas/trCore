@@ -1,68 +1,181 @@
-# mCore AYARLAR
-prefix: "<bold><gradient:#29f057:#41f06a>mCore</gradient></bold> <dark_gray>»</dark_gray> "
+# vtCore AYARLAR
+prefix: ''
 
 actionbar:
   enabled: true
   interval: 30
-  message: "<green>ᴍᴀꜱᴋᴇᴘʀᴀᴄ.ᴏʀɢ"
+  message: <#92d4f7>ᴠᴀɴɪʟʟᴀᴛᴜʀᴋᴇʏ.ɴᴇᴛ
   disabled-worlds:
-    - "world"
+  - world
 
+settings:
+  # Ayarlar menüsü açıldığında çalacak ses (boş bırak = ses yok)
+  open-sound: ENTITY_BAT_TAKEOFF
+  # Actionbar toggle için izin yoksa çalar
+  no-perm-sound: ENTITY_VILLAGER_NO
+
+old-death-drops:
+  enabled: true
 combat-log:
   enabled: true
   duration: 15
   kill-on-quit: true
   whitelisted-worlds:
-    - "world"
-    - "world_nether"
-    - "world_the_end"
-    - "orman"
+  - sand
+  - box
+  - plains
+  - end
+  - mushroom
+  - snow
 
 death-commands:
-  enabled: true
+  enabled: false
   worlds:
-    world:
-      - "eco take %player% 100"
-      - "msg %player% <red>Öldüğün için paranızdan kesinti yapıldı."
-    orman:
-      - "msg %player% <yellow>Ormanda öldün!"
+    box:
+    - sudo %player% /kit1
 
 kill-system:
   enabled: true
   prevent-self-kill-title: true
-  sound: "BLOCK_ENCHANTMENT_TABLE_USE"
+  sound: UI_HUD_BUBBLE_POP
   title:
     enabled: true
-    main: ""
-    sub: "<green><bold>+1 ᴋɪʟʟ</bold></green>"
+    main: ''
+    sub: <aqua><bold>+1 ᴋɪʟʟ</bold></aqua>
 
 tpa:
   timeout: 60
   delay: 3
-  countdown-sound: "BLOCK_NOTE_BLOCK_HAT"
-  sound-on-request: "BLOCK_NOTE_BLOCK_PLING"
-  sound-on-teleport: "ENTITY_ENDERMAN_TELEPORT"
-  event-duration: 120
+  countdown-sound: BLOCK_NOTE_BLOCK_HAT
+  sound-on-request: BLOCK_NOTE_BLOCK_PLING
+  sound-on-teleport: ENTITY_ENDERMAN_TELEPORT
+  event-duration: 80
+  world-icons:
+    sand: SAND
+    plains: GRASS_BLOCK
+    end: END_STONE
+    mushroom: RED_MUSHROOM_BLOCK
+    snow: SNOW_BLOCK
+    spawn: MOSS_BLOCK
+    box: BEACON
+  world-names:
+    sand: <#eceda4>Çöl
+    plains: <#75f077>Ova
+    end: <#EEF6B4>End
+    mushroom: <#ed6458>Mantar
+    snow: <#f0f0f0>Kar
+    spawn: <#bbfacc>Spawn
+    box: <#bbf2fa>Box
 
 world-change:
-  enabled: true
+  enabled: false
   commands:
-    spawn: "kit1"
+    spawn: kit1
 
 rtp-queue:
-  world: "sand"
+  world:
+  - sand
+  - plains
+  - end
+  - mushroom
+  - snow
   min-range: 100
-  max-range: 2000
-  distance-between-players: 8
-  waiting-sound: "MUSIC_DISC_MELLOHI"
+  max-range: 6000
+  distance-between-players: 12.0
+  waiting-sound: MUSIC_DISC_MELLOHI
   timeout-seconds: 96
-  timeout-sound: "ENTITY_VILLAGER_NO"
-  match-sound: "ENTITY_PLAYER_LEVELUP"
-  command: "kit1"
+  timeout-sound: ENTITY_VILLAGER_NO
+  match-sound: ENTITY_PLAYER_LEVELUP
+  command: rekit
+  # OPTIMIZATION: Eşleşmeler için önceden hesaplanmış konum sayısı
+  buffer-size: 50
 
 rtp-duel:
-  world: "sand"
-  min-range: 500
-  max-range: 5000
-  distance-between-players: 10
-  command: "kit1"
+  world:
+  - sand
+  - plains
+  - end
+  - mushroom
+  - snow
+
+  world-icons:
+    sand: SAND
+    plains: GRASS_BLOCK
+    end: END_STONE
+    mushroom: RED_MUSHROOM_BLOCK
+    snow: SNOW_BLOCK
+
+  world-names:
+    sand: <#eceda4>Çöl
+    plains: <#75f077>Ova
+    end: <#EEF6B4>End
+    mushroom: <#ed6458>Mantar
+    snow: <#f0f0f0>Kar
+
+  min-range: 100
+  max-range: 10000
+  distance-between-players: 12.0
+  command: rekit
+  # OPTIMIZATION: Düellolar için önceden hesaplanmış konum sayısı
+  buffer-size: 50
+
+custom-commands:
+  discord:
+    aliases:
+    - dc
+    lines:
+    - ''
+    - '                <#5865F2><bold>ᴅɪꜱᴄᴏʀᴅ ꜱᴜɴᴜᴄᴜᴍᴜᴢ</bold></#5865F2>'
+    - '                 <click:open_url:''https://discord.gg/trprac''><#5865F2>[ᴋᴀᴛɪʟᴍᴀᴋ
+      ɪçɪɴ ᴛɪᴋʟᴀ]</#5865F2></click>'
+    - ''
+
+# Her dünya için yere düşen eşyaların kaç saniye sonra silineceğini belirler.
+# -1 = o dünyada bu özellik kapalı (eşyalar silinmez)
+# Pozitif sayı = o kadar saniye sonra eşya silinir
+#
+# enabled-worlds: Bu liste doluysa SADECE bu dünyalarda item-clear aktif olur.
+# Boş bırakılırsa aşağıdaki worlds map'inde tanımlı olan tüm dünyalar aktif olur.
+item-clear:
+  enabled-worlds:
+    - box
+    - sand
+    - plains
+  worlds:
+    deneme: 3
+    box: 10
+    sand: 10
+    plains: 10
+    world: 60
+    deneme1: -1
+
+
+spawn:
+  on-join: true
+  on-respawn: true
+  respawn-delay: 0
+  disabled-worlds: []
+  respawn-at-main-spawn: []
+  location:
+    world: deneme1
+    x: 278.96384858805834
+    y: 0.08042691298749724
+    z: 195.03010849386044
+    pitch: 1.6495284
+    yaw: 117.290375
+
+# ======================================================
+# MENU-COMMANDS — ZMenu tarzı menü komut tanımları
+# Burada tanımlanan her giriş için otomatik komut kaydedilir.
+# menu: menus/ klasöründeki dosya adı (uzantısız)
+# aliases: ek komut adları (opsiyonel)
+# ======================================================
+menu-commands:
+  rtp:
+    menu: rtp-menu
+    aliases: []
+  ayarlar:
+    menu: settings
+    aliases:
+      - settings
+      - ayar

@@ -1,0 +1,193 @@
+title: "<gray>ᴀʏᴀʀʟᴀʀ"
+size: 54
+items:
+  tpa_auto:
+    slot: 11
+    material: BEACON
+    name: "<!italic><#2ccdb1>ᴛᴘᴀᴜᴛᴏ"
+    lore:
+      - "<!italic><gray>Durum: %status%"
+      - ""
+      - "<!italic><#2ccdb1>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+    action: "tpa_auto"
+  messages:
+   slot: 20
+   material: PALE_OAK_HANGING_SIGN
+   name: "<!italic><#ebebeb>ᴍᴇꜱᴀᴊʟᴀʀ"
+   lore:
+      - "<!italic><gray>Durum: %allaychat_msg_status%"
+      - ""
+      - "<!italic><#ebebeb>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+   action: "external_cmd"
+   left_cmd: "msgtoggle"
+   right_cmd: "msgtoggle"
+  death_drop_hide:
+    slot: 33
+    material: BARRIER
+    name: "<!italic><#ff6b6b>ᴅʀᴏᴘ ɢɪᴢʟᴇᴍᴇ"
+    lore:
+      - "<!italic><gray>Durum: %status%"
+      - ""
+      - "<!italic><#ff6b6b>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+    action: "death_drop_hide"
+
+  night_vision:
+    slot: 31
+    material: HONEY_BOTTLE
+    name: "<!italic><#eded6f>ɢᴇᴄᴇ ɢöʀüşü"
+    lore:
+      - "<!italic><gray>Durum: %status%"
+      - ""
+      - "<!italic><#eded6f>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+    action: "night_vision"
+
+  mentions:
+    slot: 24
+    material: BELL
+    name: "<!italic><#feffbd>ʙᴀʜꜱᴇᴛᴍᴇ ʙɪʟᴅɪʀɪᴍʟᴇʀɪ"
+    lore:
+      - "<!italic><gray>Durum: %allaychat_mention_status%"
+      - ""
+      - "<!italic><#feffbd>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+    action: "external_cmd"
+    left_cmd: "mentionstoggle"
+    right_cmd: "mentionstoggle"
+  chat:
+    slot: 23
+    material: TURTLE_SCUTE
+    name: "<!italic><#27c260>ɢᴇɴᴇʟ ꜱᴏʜʙᴇᴛ"
+    lore:
+      - "<!italic><gray>Durum: %allaychat_chat_status%"
+      - ""
+      - "<!italic><#27c260>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+    action: "external_cmd"
+    left_cmd: "chattoggle"
+    right_cmd: "chattoggle"
+  fast_crystal:
+    slot: 22
+    material: END_CRYSTAL
+    name: "<!italic><#c63ae8>ʜɪᴢʟɪ ᴋʀɪꜱᴛᴀʟ"
+    lore:
+      - "<!italic><gray>Durum: %fastercrystals_status%"
+      - ""
+      - "<!italic><#c63ae8>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+    action: "external_cmd"
+    left_cmd: "fastcrystal toggle"
+    right_cmd: "fastcrystal toggle"
+
+  kit_msgs:
+    slot: 10
+    material: CHEST
+    name: "<!italic><#e8c83a>ᴋɪᴛ ʙɪʟᴅɪʀɪᴍʟᴇʀɪ"
+    papi_radius_check: "%perplayerkit_broadcast_distance%"
+    lore:
+      - "<!italic><gray>Durum: %perplayerkit_broadcast_status%"
+      - "<!italic><gray>Mesafe:"
+      - "<!italic>%radius_100%"
+      - "<!italic>%radius_150%"
+      - "<!italic>%radius_200%"
+      - "<!italic>%radius_250%"
+      - ""
+      - "<!italic><#e8c83a>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+      - "<!italic><#e8c83a>ꜱᴀğ ᴛıᴋ <gray>ile mesafeyi değiştir."
+    action: "external_cmd"
+    left_cmd: "kitbroadcast toggle"
+    right_cmd: "kitbroadcast distance"
+
+  duel:
+    slot: 12
+    material: DIAMOND_SWORD
+    name: "<!italic><#49b8d1>ᴅüᴇʟʟᴏ ɪꜱᴛᴇᴋʟᴇʀɪ"
+    lore:
+      - "<!italic><gray>Durum: %status%"
+      - ""
+      - "<!italic><#49b8d1>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+    action: "duel"
+
+  tpa:
+    slot: 13
+    material: ENDER_PEARL
+    name: "<!italic><#2ccdb1>ᴛᴘᴀ ɪꜱᴛᴇᴋʟᴇʀɪ"
+    lore:
+      - "<!italic><gray>Durum: %status%"
+      - ""
+      - "<!italic><#2ccdb1>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+    action: "tpa"
+
+  tpahere:
+    slot: 14
+    material: ENDER_EYE
+    name: "<!italic><#579143>ᴛᴘᴀʜᴇʀᴇ ɪꜱᴛᴇᴋʟᴇʀɪ"
+    lore:
+      - "<!italic><gray>Durum: %status%"
+      - ""
+      - "<!italic><#579143>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+    action: "tpahere"
+
+  death_msgs:
+    slot: 16
+    material: REDSTONE
+    name: "<!italic><#d14949>öʟüᴍ ᴍᴇꜱᴀᴊʟᴀʀɪ"
+    lore:
+      - "<!italic><gray>Durum: %status%"
+      - "<!italic><gray>Mesafe:"
+      - "<!italic>%radius_100%"
+      - "<!italic>%radius_150%"
+      - "<!italic>%radius_200%"
+      - "<!italic>%radius_250%"
+      - ""
+      - "<!italic><#d14949>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+      - "<!italic><#d14949>ꜱᴀğ ᴛıᴋ <gray>ile mesafeyi değiştir."
+    action: "death_msgs"
+
+  scoreboard:
+   slot: 21
+   material: HEAVY_CORE
+   name: "<!italic><#a4a8b8>ꜱᴄᴏʀᴇʙᴏᴀʀᴅ"
+   lore:
+     - "<!italic><gray>Değiştirmek için tıkla!"
+   action: "external_cmd"
+   left_cmd: "sb"
+   right_cmd: "sb"
+
+  rekit_death:
+    slot: 39
+    material: SKELETON_SKULL
+    name: "<!italic><#ede9e8>öʟüɴᴄᴇ ʀᴇᴋɪᴛ"
+    lore:
+      - "<!italic><gray>Durum: %status%"
+      - ""
+      - "<!italic><#ede9e8>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+    action: "rekit_death"
+
+  rekit_kill:
+    slot: 41
+    material: RED_BUNDLE
+    name: "<!italic><#f57067>öʟᴅüʀüɴᴄᴇ ʀᴇᴋɪᴛ"
+    lore:
+      - "<!italic><gray>Durum: %status%"
+      - ""
+      - "<!italic><#f57067>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+    action: "rekit_kill"
+
+  elo_display:
+    slot: 25
+    material: GOLD_NUGGET
+    name: "<!italic><#ffaa00>ʀᴀɴᴋᴇᴅ ɢöʀüɴüᴍü"
+    lore:
+      - "<!italic><gray>Durum: %trcore_elo_setting_formatted%"
+      - ""
+      - "<!italic><#ffaa00>ꜱᴏʟ ᴛıᴋ <gray>ile görünümü değiştir."
+    action: "external_cmd"
+    left_cmd: "elo toggle-setting"
+    right_cmd: "elo toggle-setting"
+
+  quick_rtp:
+    slot: 15
+    material: ENDER_PEARL
+    name: "<!italic><#a855f7>ǫᴜɪᴄᴋʀᴛᴘ"
+    lore:
+      - "<!italic><gray>Durum: %status%"
+      - ""
+      - "<!italic><#a855f7>ꜱᴏʟ ᴛıᴋ <gray>ile aç/kapat."
+    action: "quick_rtp"

@@ -1,6 +1,23 @@
 no-perm: "<red>Buna Yetkin Bulunmamaktadır.</red>"
 reload: "<green>Plugin yenilendi.</green>"
 
+discord: "<newline>                   <#5865F2><bold>ᴅɪꜱᴄᴏʀᴅ ꜱᴜɴᴜᴄᴜᴍᴜᴢ</bold></#5865F2><newline>                                    <click:open_url:'https://discord.gg/trprac'><#5865F2>[ᴋᴀᴛɪʟᴍᴀᴋ ɪÇɪɴ ᴛɪᴋʟᴀ]</#5865F2></click><newline>"
+
+night-vision:
+  enabled: "<<gray>Gece Görüşü: <green>Açık"
+  disabled: "<gray>Gece Görüşü: <green>Açık"
+
+death-messages:
+  # İstersen böyle kullan:
+  format: "<gray>%victim% %killer% tarafından öldürüldü"
+  self-kill: "<gray>%victim% kendini mahvetti"
+
+  # Ya da öldüreni ekle: "<red>%victim%, <yellow>%killer% <red>tarafından katledildi!"
+  # Ya da varsayılan kalsın: "<gray>[☠] <red>%message%"
+
+  toggled-on: "<gray>Ölüm mesajları açıldı. <gray>(Mesafe: %radius% Blok)</gray>"
+  toggled-off: "<gray>Ölüm mesajları kapatıldı."
+  radius-changed: "<gray>Ölüm mesajı mesafesi güncellendi: <green>%radius% Blok"
 admin:
   gamemode: "<green>Oyun modun <yellow>%mode% <green>olarak değiştirildi."
   gamemode-other: "<green>%target% adlı oyuncunun modu <yellow>%mode% <green>yapıldı."
@@ -33,12 +50,12 @@ clearchat:
   admin-bypass: "<gray>(Yönetici olduğun için sohbetin silinmedi)</gray>"
 
 back:
-  teleporting: "<green>Önceki konumuna dönülüyor...</green>"
+  teleporting: "<gray>Önceki konumuna dönülüyor...</gray>"
   no-location: "<red>Dönecek bir konumun yok.</red>"
 
 combat:
-  tagged: "<red>Savaştayken oyundan çıktığı için %player% öldürüldü!</red>"
-  opponent-quit: "<gray>Rakip oyundan kaçtı! <green>Kazandın.</green>"
+  tagged: ""
+  opponent-quit: "<gray>Rakip oyundan çıktı"
 
 invsee:
   opened: "<green>%target% envanteri açıldı.</green>"
@@ -46,18 +63,19 @@ invsee:
 
 tpa:
   sent: "<green>%target%</green> Adlı Oyuncuya Işınlanma İsteği Gönderildi"
-  received: "<green>%player%</green> sana ışınlanmak isteği gönderdi. <newline>                             <click:run_command:/tpa internal_accept %player%><green>[ᴋᴀʙᴜʟ ᴇᴛ]</green></click>"
-  received-here: "<#8cffc9>%player%</#8cffc9> seni yanına ışınlanma isteği gönderdi. <newline>                             <click:run_command:/tpahere internal_accept %player%><#8cffc9>[ᴋᴀʙᴜʟ ᴇᴛ]</#8cffc9></click>"
-  accepted: "İstek kabul edildi. <green>%time% sn </green>içinde ışınlanılıyor..."
+  received: " <newline> <green>%player%</green> sana ışınlanma isteği gönderdi. <newline>                             <click:run_command:/tpa internal_accept %player%><green>[ᴋᴀʙᴜʟ ᴇᴛ]</green></click>"
+  received-here: " <newline> <#8cffc9>%player%</#8cffc9> seni yanına ışınlanma isteği gönderdi. <newline>                             <click:run_command:/tpahere internal_accept %player%><#8cffc9>[ᴋᴀʙᴜʟ ᴇᴛ]</#8cffc9></click>"
+  accepted: "<gray>İstek kabul edildi. <green>%time% </green><gray>Zsn içinde ışınlanılıyor..."
   denied: "<red>İstek reddedildi.</red>"
   cancelled: "<red>İstek iptal edildi.</red>"
   no-request: "<red>İstek bulunamadı.</red>"
   already-sent: "<red>Zaten bekleyen bir isteğin var. Önce iptal et: /tpacancel</red>"
-  usage: "<red>Kullanım: /tpa <oyuncu></red>"
+  usage: "<gray>Kullanım: /tpa <oyuncu></red>"
   timeout: "<red>İstek zaman aşımına uğradı.</red>"
-
+  bossbar: "<!italic><green><bold>ᴛᴘᴀᴜᴛᴏ ᴀᴋᴛɪꜰ!"
+  auto-accepted-target: "<green>%player%</green> <gray>adlı oyuncunun ışınlanma isteğini otomatik olarak kabul ettiniz."
 tpa-event:
-  broadcast: "<gradient:#f26fdf:#d74ddb><bold>%player%</gradient> <white>Herkesi Yanına Çağırıyor</white> <newline>                             <click:run_command:/tpaevent join ><light_purple>[ᴋᴀʙᴜʟ ᴇᴛ]</light_purple></click>"
+  broadcast: " <newline> <gradient:#f26fdf:#d74ddb><bold>%player%</gradient> <white>Herkesi Yanına Çağırıyor</white> <newline>                             <click:run_command:/tpaevent join ><light_purple>[ᴋᴀʙᴜʟ ᴇᴛ]</light_purple></click>"
   started: "<light_purple>Etkinlik başlatıldı! (2 Dakika)</light_purple>"
   joined: "<light_purple>Etkinliğe katıldın!</light_purple>"
   already-joined: "<red>Zaten katıldın.</red>"
@@ -65,13 +83,38 @@ tpa-event:
   already-active: "<red>Zaten aktif bir etkinlik var.</red>"
   expired: "<red>Etkinlik süresi doldu veya aktif değil.</red>"
 
+toggle:
+  tpauto-enabled: "<gray>TPAuto artık açık."
+  tpauto-disabled: "<gray>TPAuto kapalı."
+  queue-notify-enabled: "<gray>Rtpsıra bildirimleri açıldı."
+  queue-notify-disabled: "<gray>Rtpsıra bildirimleri kapatıldı."
+  queue-music-enabled: "<gray>Rtpsıra müziği açıldı."
+  queue-music-disabled: "<gray>Rtpsıra müziği kapatıldı."
+  tpa-enabled: "<gray>TPA istekleri artık açık."
+  tpa-disabled: "<gray>TPA isteklerini kapattın."
+  tpahere-enabled: "<gray>TPA Here istekleri artık açık."
+  tpahere-disabled: "<gray>TPA Here isteklerini kapattın."
+  duel-enabled: "<gray>Düello istekleri artık açık."
+  duel-disabled: "<gray>Düello isteklerini kapattın."
+  target-disabled: "<gray>Bu oyuncu istekleri kapatmış."
 rtp-queue:
-  joined: "<green>1v1 Sırasına girdin! <gray>(%current%/2)</green>"
+  joined: "<green>Sıraya girdin! <gray>(%current%/2)</green>"
   left: "<red>Sıradan çıktın.</red>"
+  broadcast-join: "<green>%player% sıraya katıldı.</green>"
   matched: "Eşleşme bulundu! <green>Işınlanılıyor...</green>"
+  searching-location: "<gray>Sıra için güvenli bir konum aranıyor..."
   already-in: "<red>Zaten sıradasın.</red>"
   timeout: "<red>Eşleşme bulunamadı, sıradan çıkarıldın.</red>"
-
+cooldown:
+  active: "<gray>Bu komutu tekrar kullanmak için %time% saniye beklemelisin."
 rtp-duel:
   sent: "<#cdf26f>%target%</#cdf26f> adlı kişisine düello isteği atıldı."
   received: "<#cdf26f>%player%</#cdf26f> seninle düello atmak istiyor. <newline>                             <click:run_command:/rtpduel internal_accept %player%><#cdf26f>[ᴋᴀʙᴜʟ ᴇᴛ]</#cdf26f></click>"
+
+rtp:
+  searching: "<gray>Rastgele bir konum aranıyor..."
+  success: "<green>Işınlandın! <gray>Konum: <white>%x%, %y%, %z%"
+  fail: "<red>Işınlanma başarısız, tekrar deneyin."
+  searching: "<gray>Rastgele bir konum aranıyor..."
+  no-location: "<red>Uygun bir konum bulunamadı, lütfen tekrar deneyin."
+  no-world: "<red>'%world%' dünyası rtp.yml'de tanımlı değil!"

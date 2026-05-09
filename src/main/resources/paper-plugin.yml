@@ -1,0 +1,76 @@
+name: trCore
+version: "1.0"
+main: com.trcore.TRCore
+description: Türkiyenin görebileceği en güzel practice core
+api-version: "1.21"
+folia-supported: true
+authors:
+  - MaskeDev
+
+dependencies:
+  server:
+    PlaceholderAPI:
+      load: BEFORE
+      required: true
+      join-classpath: true
+    Vault:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    packetevents:
+      load: BEFORE
+      required: true
+      join-classpath: true
+    LuckPerms:
+      load: BEFORE
+      required: false
+      join-classpath: true
+
+permissions:
+  trcore.cooldown.bypass:
+    description: Komut bekleme surelerinden etkilenmez.
+    default: op
+
+commands:
+  tpaccept:
+    description: TPA istegini kabul eder.
+    aliases: [tpyes, tpkabul]
+  tpdeny:
+    description: TPA istegini reddeder.
+    aliases: [tpno, tpred]
+  tpauto:
+    description: Otomatik kabul
+    aliases: [tpaauto]
+  tpahere:
+    description: Oyuncuyu yaniniza cagirir.
+    aliases: [tpyanina]
+  trcore:
+    description: Admin komutu
+  tpa:
+    description: TPA İsteği atar
+  tpaevent:
+    description: TPA Etkinliği komutu
+  taptal:
+    description: TPA iptal
+  rtpduel:
+    description: RTP Düello komutu
+  trim:
+    description: Trim Menüsü
+  toggle:
+    description: İstek kapatma yöneticisi
+  Spawn:
+    description: Spawn komutu
+  setspawn:
+    description: Set Spawn
+  clearchat:
+    description: Chat temiszler
+    aliases: [cc]
+  gmc:
+    description: Creative
+  gms:
+    description: Survival
+  gmsp:
+    description: Spectator
+  disguise:
+    description: Sahte isim alma
+    aliases: [nick]

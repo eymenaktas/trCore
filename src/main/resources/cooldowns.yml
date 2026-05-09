@@ -1,0 +1,73 @@
+groups:
+  baslangic-kitleri:
+    seconds: 3
+    commands:
+      # Kitler
+      - "/kit"
+      - "/kit1"
+      - "/kit2"
+      - "/kit3"
+      - "/kit4"
+      - "/kit5"
+      - "/kit6"
+      - "/kit7"
+
+      # Kısa kit komutları
+      - "/k1"
+      - "/k2"
+      - "/k3"
+      - "/k4"
+      - "/k5"
+      - "/k6"
+      - "/k7"
+
+      # Enderchest
+      - "/ec"
+      - "/enderchest"
+      - "/ec1"
+      - "/ec2"
+      - "/ec3"
+      - "/ec4"
+      - "/ec5"
+      - "/ec6"
+      - "/ec7"
+
+      # Kit / EC yönetimi
+      - "/copykit"
+      - "/copyec"
+      - "/copyenderchest"
+      - "/sharekit"
+      - "/shareec"
+      - "/shareenderchest"
+      - "/swapkit"
+
+      # Diğer
+      - "/heal"
+      - "/repair"
+      - "/regear"
+      - "/kitroom"
+      - "/premadekit"
+      - "/publickit"
+
+  ozel-komutlar:
+    seconds: 5
+    commands:
+      - "/düello"
+      - "/rtpduel"
+      - "/tpahere"
+      - "/tpa"
+      - "/rtpd"
+      - "/rtp"
+      - "/bot"
+      - "/back"
+      - "/box"
+      - "/spawn"
+      - "/rtpqueue"
+      - "/rtpq"
+      - "/rtpsıra"
+
+  vip-ozellik:
+    seconds: 10
+    commands:
+      - "/repair"
+      - "/fix"

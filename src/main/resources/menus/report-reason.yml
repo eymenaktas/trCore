@@ -1,0 +1,31 @@
+title: "Raporla: %target%"
+size: 27
+items:
+  border:
+    slot: [0, 1, 2, 3, 4, 5, 6, 7, 8, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+    material: BLACK_STAINED_GLASS_PANE
+    name: "&7"
+  killaura:
+    slot: 11
+    material: DIAMOND_SWORD
+    name: "&cKillaura / Combat Hacks"
+    lore:
+      - "&7Rakibe anormal şekilde"
+      - "&7vuruyorsa seçin."
+    action: "Killaura/Combat"
+  speed:
+    slot: 13
+    material: DIAMOND_BOOTS
+    name: "&bSpeed / Movement Hacks"
+    lore:
+      - "&7Çok hızlı koşuyor veya"
+      - "&7uçuyorsa seçin."
+    action: "Speed/Movement"
+  chat:
+    slot: 15
+    material: PAPER
+    name: "&eKüfür / Reklam"
+    lore:
+      - "&7Sohbette kural ihlali"
+      - "&7yapıyorsa seçin."
+    action: "Küfür/Reklam"

@@ -1,0 +1,58 @@
+name: AAC
+version: ${version}
+main: com.aac.plugin.AAC
+api-version: 1.21
+authors: [CanXD]
+description: AAC Raporlama Rapor Görüntüleme Eklentisi Folia Paper Tam Destekli
+website: https://github.com/canxxd
+
+commands:
+  raporla:
+    description: Bir oyuncuyu raporlamak için
+    usage: /raporla
+
+  raporlar:
+    description: Raporları görüntülemek için
+    usage: /raporlar
+
+  aacwatch:
+    description: Oyuncuları izlemek için
+    usage: /aacwatch
+
+  aacsystem:
+    description: AAC yönetimi
+    usage: /aacsystem reload | help | alerts.
+
+permissions:
+  aac.report:
+    description: Oyuncuları raporlama yetkisi
+    default: true
+
+  aac.reports.view:
+    description: Raporları görüntüleme
+    default: op
+
+  aac.reports.manage:
+    description: Raporları yönetmeye silmeye izin
+    default: op
+
+  aac.watch:
+    description: Oyuncuları izlemeye
+    default: op
+
+  aac.system.reload:
+    description: AAC config yeniden yüklemeye izin verir
+    default: op
+    
+  aac.admin:
+    description: AAC için tüm izinler YÖNETİCİ PERMİDİR AACLERE VERİLMEZ DİKKATLİ
+    default: op
+
+    children:
+      aac.report: true
+      aac.reports.view: true
+      aac.reports.manage: true
+      aac.watch: true
+      aac.system.reload: true
+
+folia-supported: true

@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.maske</groupId>
-    <artifactId>vtcore</artifactId>
+    <artifactId>trcore</artifactId>
     <version>2.0</version>
     <packaging>jar</packaging>
 
-    <name>vtCore</name>
+    <name>trCore</name>
 
     <properties>
         <java.version>21</java.version>
@@ -57,7 +57,7 @@
                     <relocations>
                         <relocation>
                             <pattern>com.tcoded.folialib</pattern>
-                            <shadedPattern>org.maske.vtcore.lib.folialib</shadedPattern>
+                            <shadedPattern>org.maske.trcore.lib.folialib</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

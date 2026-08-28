@@ -73,4 +73,7 @@ commands:
     description: Spectator
   disguise:
     description: Sahte isim alma
-    aliases: [nick]
+    aliases: [nick]
+  rankedhistory:
+    description: Ranked mac gecmisini gosterir
+    aliases: [rh]

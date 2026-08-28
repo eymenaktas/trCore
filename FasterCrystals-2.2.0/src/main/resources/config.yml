@@ -1,0 +1,11 @@
+# Default state for new players (when they join for the first time)
+# true = FasterCrystals is enabled by default
+# false = FasterCrystals is disabled by default
+default-state: true
+
+# Whenever you see the <state> placeholder, it will be one of these.
+state:
+  'on': '<yellow>on</yellow>'
+  'off': '<yellow>off</yellow>'
+
+text: '<gold>Turned</gold> <state> <gold>your FasterCrystals setting.</gold>'

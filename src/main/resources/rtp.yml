@@ -1,0 +1,39 @@
+# =============================================
+#   trCore — RTP Dünya Ayarları
+#   Her dünya için ayrı ayrı min/max ve worldborder
+#   Komutla: /rtp <dünyaAdı> ya da menü aksiyonu: rtp-<dünyaAdı>
+# =============================================
+
+settings:
+  # Her dünya için hafızada tutulacak güvenli konum sayısı.
+  buffer-size: 100
+  # Yeni konum arama sıklığı (tick). Düşük değer = daha hızlı dolar ama CPU yer.
+  fill-interval-ticks: 20
+  # Buffer boşsa yapılacak maksimum deneme sayısı.
+  retry-count: 10
+
+worlds:
+  sand:
+    min: 100
+    max: 6000
+    use-worldborder: false
+
+  plains:
+    min: 100
+    max: 8000
+    use-worldborder: false
+
+  end:
+    min: 100
+    max: 5000
+    use-worldborder: false
+
+  mushroom:
+    min: 100
+    max: 5000
+    use-worldborder: false
+
+  snow:
+    min: 100
+    max: 5000
+    use-worldborder: false

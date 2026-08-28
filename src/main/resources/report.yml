@@ -1,0 +1,41 @@
+# VTCore Report Ayarları
+
+# Rapor atma bekleme süresi (Saniye)
+cooldown: 60
+
+messages:
+  usage: "&cKullanım: /report <oyuncu>"
+  offline: "&cBelirtilen oyuncu aktif değil."
+  self: "&cKendinizi raporlayamazsınız!"
+  cooldown: "&cRapor sistemini tekrar kullanabilmek için &e%time% &csaniye beklemelisin."
+  success: "&aRaporunuz başarıyla yetkililere iletildi. Teşekkürler!"
+  notify: "&c[RAPOR] &e%reporter% &7adlı oyuncu &c%target% &7adlı oyuncuyu raporladı! &8(&e%reason%&8)"
+
+gui:
+  title: "Raporla: %target%"
+  size: 27
+  items:
+    killaura:
+      slot: 11
+      material: DIAMOND_SWORD
+      name: "&cKillaura / Combat Hacks"
+      lore:
+        - "&7Rakibe anormal şekilde"
+        - "&7vuruyorsa seçin."
+      action: "Killaura/Combat"
+    speed:
+      slot: 13
+      material: DIAMOND_BOOTS
+      name: "&bSpeed / Movement Hacks"
+      lore:
+        - "&7Çok hızlı koşuyor veya"
+        - "&7uçuyorsa seçin."
+      action: "Speed/Movement"
+    chat:
+      slot: 15
+      material: PAPER
+      name: "&eKüfür / Reklam"
+      lore:
+        - "&7Sohbette kural ihlali"
+        - "&7yapıyorsa seçin."
+      action: "Küfür/Reklam"

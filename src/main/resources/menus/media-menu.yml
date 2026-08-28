@@ -1,0 +1,46 @@
+# =============================================
+#   Medya Menüsü
+#   Sosyal medya ve sunucu bilgileri
+# =============================================
+title: "<gold><bold>📡 Medya & Sosyal</bold></gold>"
+size: 27
+
+items:
+  # ── Discord ──────────────────────────────────────────────────
+  discord:
+    slot: 11
+    material: BLUE_DYE
+    name: "<blue><bold>Discord</bold></blue>"
+    lore:
+      - "<gray>Sunucu Discord sunucusuna katıl!"
+      - ""
+      - "<aqua>discord.gg/sunucu"
+    action: link:https://discord.gg/sunucu
+
+  # ── YouTube ──────────────────────────────────────────────────
+  youtube:
+    slot: 13
+    material: RED_DYE
+    name: "<red><bold>YouTube</bold></red>"
+    lore:
+      - "<gray>YouTube kanalımıza abone ol!"
+      - ""
+      - "<red>youtube.com/kanal"
+    action: link:https://youtube.com/kanal
+
+  # ── Instagram ────────────────────────────────────────────────
+  instagram:
+    slot: 15
+    material: PINK_DYE
+    name: "<light_purple><bold>Instagram</bold></light_purple>"
+    lore:
+      - "<gray>Instagram sayfamızı takip et!"
+      - ""
+      - "<light_purple>instagram.com/sunucu"
+    action: link:https://instagram.com/sunucu
+
+  # ── Dolgu ─────────────────────────────────────────────────────
+  filler:
+    slot: [0,1,2,3,4,5,6,7,8,9,10,12,14,16,17,18,19,20,21,22,23,24,25,26]
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "

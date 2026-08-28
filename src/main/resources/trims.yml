@@ -1,0 +1,127 @@
+# -------------------------------------------------------------
+# trCore - Armor Trimmer (TrimPlus) Configuration
+# -------------------------------------------------------------
+# Bu dosya tüm zırh süslemeleri (trim) ayarlarını içerir.
+# MiniMessage (<red>, <bold>, <gradient>) desteklenmektedir.
+
+gui:
+  title: "<gradient:#ff8cff:#8cffff><bold>Armor Trimer"
+  size: 27
+  filler_material: "GRAY_STAINED_GLASS_PANE"
+  # Süsleme ve Materyal butonlarının ikonları aşağıda tanımlıdır.
+
+# Zırh Süsleme Desenleri (Patterns)
+patterns:
+  sentry:
+    display-name: "<#ff8cff>Sentry Pattern"
+    icon: "SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE"
+  vex:
+    display-name: "<#ff8cff>Vex Pattern"
+    icon: "VEX_ARMOR_TRIM_SMITHING_TEMPLATE"
+  wild:
+    display-name: "<#ff8cff>Wild Pattern"
+    icon: "WILD_ARMOR_TRIM_SMITHING_TEMPLATE"
+  coast:
+    display-name: "<#ff8cff>Coast Pattern"
+    icon: "COAST_ARMOR_TRIM_SMITHING_TEMPLATE"
+  dune:
+    display-name: "<#ff8cff>Dune Pattern"
+    icon: "DUNE_ARMOR_TRIM_SMITHING_TEMPLATE"
+  wayfinder:
+    display-name: "<#ff8cff>Wayfinder Pattern"
+    icon: "WAY_FINDER_ARMOR_TRIM_SMITHING_TEMPLATE"
+  raiser:
+    display-name: "<#ff8cff>Raiser Pattern"
+    icon: "RAISER_ARMOR_TRIM_SMITHING_TEMPLATE"
+  shaper:
+    display-name: "<#ff8cff>Shaper Pattern"
+    icon: "SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE"
+  host:
+    display-name: "<#ff8cff>Host Pattern"
+    icon: "HOST_ARMOR_TRIM_SMITHING_TEMPLATE"
+  ward:
+    display-name: "<#ff8cff>Ward Pattern"
+    icon: "WARD_ARMOR_TRIM_SMITHING_TEMPLATE"
+  silence:
+    display-name: "<#ff8cff>Silence Pattern"
+    icon: "SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE"
+  tide:
+    display-name: "<#ff8cff>Tide Pattern"
+    icon: "TIDE_ARMOR_TRIM_SMITHING_TEMPLATE"
+  snout:
+    display-name: "<#ff8cff>Snout Pattern"
+    icon: "SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE"
+  rib:
+    display-name: "<#ff8cff>Rib Pattern"
+    icon: "RIB_ARMOR_TRIM_SMITHING_TEMPLATE"
+  eye:
+    display-name: "<#ff8cff>Eye Pattern"
+    icon: "EYE_ARMOR_TRIM_SMITHING_TEMPLATE"
+  spire:
+    display-name: "<#ff8cff>Spire Pattern"
+    icon: "SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE"
+  flow:
+    display-name: "<#8cffff>Flow Pattern"
+    icon: "FLOW_ARMOR_TRIM_SMITHING_TEMPLATE"
+  bolt:
+    display-name: "<#8cffff>Bolt Pattern"
+    icon: "BOLT_ARMOR_TRIM_SMITHING_TEMPLATE"
+
+# Süsleme Materyalleri (Materials)
+materials:
+  iron:
+    display-name: "<white>Demir (Iron)"
+    icon: "IRON_INGOT"
+  copper:
+    display-name: "<#e67e22>Bakır (Copper)"
+    icon: "COPPER_INGOT"
+  gold:
+    display-name: "<yellow>Altın (Gold)"
+    icon: "GOLD_INGOT"
+  lapis:
+    display-name: "<blue>Lapis Lazuli"
+    icon: "LAPIS_LAZULI"
+  emerald:
+    display-name: "<green>Zümrüt (Emerald)"
+    icon: "EMERALD"
+  diamond:
+    display-name: "<aqua>Elmas (Diamond)"
+    icon: "DIAMOND"
+  netherite:
+    display-name: "<dark_gray>Netherite"
+    icon: "NETHERITE_INGOT"
+  redstone:
+    display-name: "<red>Redstone"
+    icon: "REDSTONE"
+  amethyst:
+    display-name: "<light_purple>Amethyst"
+    icon: "AMETHYST_SHARD"
+  quartz:
+    display-name: "<white>Kuvars (Quartz)"
+    icon: "QUARTZ"
+
+# Mesajlar (MiniMessage destekli)
+messages:
+  no-armor: "<red>Lütfen elinizde bir zırh parçası tutun!</red>"
+  no-perm: "<red>Bu işlemi yapmak için yetkiniz yok.</red>"
+  applied: "<green>Armor trim başarıyla uygulandı!</green>"
+  removed: "<yellow>Armor trim başarıyla kaldırıldı.</yellow>"
+  pattern-select: "<aqua>Desen: <white>%pattern%"
+  material-select: "<aqua>Materyal: <white>%material%"
+  apply-button: "<green><b>[ UYGULA ]</b></green>"
+  remove-button: "<red><b>[ KALDIR ]</b></red>"
+
+# Gruplar (Hangi grubun hangi desenleri kullanabileceği)
+groups:
+  default:
+    priority: 1
+    allowed_patterns: ["sentry", "vex", "wild", "coast", "dune"]
+    allowed_materials: ["iron", "copper", "gold"]
+  vip:
+    priority: 10
+    allowed_patterns: ["*"]
+    allowed_materials: ["*"]
+  admin:
+    priority: 100
+    allowed_patterns: ["*"]
+    allowed_materials: ["*"]

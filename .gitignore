@@ -1,0 +1,8 @@
+
+# build çıktıları
+target/
+build/
+bin/
+.gradle/
+*.log
+.DS_Store

@@ -1,0 +1,63 @@
+# =============================================
+#   RTP Menüsü — Sadece dünya RTP butonları
+#   Queue için /rtpqueue komutunu kullan
+#   action: rtp-<worldName> → async RTP
+#   action: rtp-random      → rastgele dünya seçip RTP
+# =============================================
+title: "<dark_green><bold>⚡ RTP</bold></dark_green>"
+size: 27
+
+items:
+  random:
+    slot: 4
+    material: COMPASS
+    name: "<gold><bold>⚡ Rastgele Dünya</bold></gold>"
+    lore:
+      - "<gray>rtp.yml'deki dünyalar arasından"
+      - "<gray>rastgele bir tanesine ışınlanır."
+    action: rtp-random
+
+  sand:
+    slot: 10
+    material: SAND
+    name: "<#eceda4><bold>Çöl</bold></#eceda4>"
+    lore:
+      - "<gray>Çöl dünyasına rastgele ışınlan."
+    action: rtp-sand
+
+  plains:
+    slot: 12
+    material: GRASS_BLOCK
+    name: "<#75f077><bold>Ova</bold></#75f077>"
+    lore:
+      - "<gray>Ova dünyasına rastgele ışınlan."
+    action: rtp-plains
+
+  mushroom:
+    slot: 13
+    material: RED_MUSHROOM_BLOCK
+    name: "<#ed6458><bold>Mantar</bold></#ed6458>"
+    lore:
+      - "<gray>Mantar dünyasına rastgele ışınlan."
+    action: rtp-mushroom
+
+  snow:
+    slot: 14
+    material: SNOW_BLOCK
+    name: "<#f0f0f0><bold>Kar</bold></#f0f0f0>"
+    lore:
+      - "<gray>Kar dünyasına rastgele ışınlan."
+    action: rtp-snow
+
+  end:
+    slot: 16
+    material: END_STONE
+    name: "<#EEF6B4><bold>End</bold></#EEF6B4>"
+    lore:
+      - "<gray>End dünyasına rastgele ışınlan."
+    action: rtp-end
+
+  filler:
+    slot: [0,1,2,3,5,6,7,8,9,11,15,17,18,19,20,21,22,23,24,25,26]
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "

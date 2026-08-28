@@ -1,0 +1,300 @@
+# ========================================================
+#                  VTCORE ELO & RANKED SYSTEM
+# ========================================================
+
+# Temel ELO Ayarlari
+elo:
+  default: 1000 
+
+  # Minimum ELO siniri (oyuncular bu elonun altina dusemez)
+  min-elo: 500
+
+  # Hesaplama ayarlari
+  calculation:
+    base-gain: 25
+    base-loss: 35
+
+    # ELO farki buysa "Buyuk Fark" kurallari isler
+    difference-threshold: 300
+
+    big-difference:
+      # Dusuk ELO, yuksek ELO'yu yenerse (gain = fark * katsayi)
+      low-wins-multiplier: 0.10
+      # Yuksek ELO, dusuk ELO'yu yenerse (gain = base_gain * multiplier)
+      high-wins-multiplier: 0.70
+      # Kaybetme
+      high-loses-multiplier: 1.3
+      low-loses-multiplier: 0.5
+    # Üst Lig (2200+ ELO) Zorluk Ayarları
+    upper-league:
+      # Üst ligdeyken ELO kazanırken bu çarpan uygulanır (Kazanmayı zorlaştırır)
+      gain-multiplier: 0.6
+      # Üst ligdeyken ELO kaybederken bu çarpan uygulanır (Kaybetmeyi kolaylaştırır)
+      loss-multiplier: 1.4
+
+
+# Rütbe Sistemi
+ranks:
+  unranked:
+    name: "<gray>Derecesiz</gray>"
+    number-color: "<gray>"
+    suffix: " {lp_suffix}"
+    min-elo: 0
+  bronze1:
+    name: "<#ad6a11>● Bakır I</#ad6a11>"
+    number-color: "<#ad6a11>"
+    suffix: " <#ad6a11>●"
+    min-elo: 1000
+  bronze2:
+    name: "<#ad6a11>● Bakır II</#ad6a11>"
+    number-color: "<#ad6a11>"
+    suffix: " <#ad6a11>●"
+    min-elo: 1100
+  bronze3:
+    name: "<#ad6a11>● Bakır III</#ad6a11>"
+    number-color: "<#ad6a11>"
+    suffix: " <#ad6a11>●"
+    min-elo: 1200
+  silver1:
+    name: "<#d6d6d6>◆ Demir I</#d6d6d6>"
+    number-color: "<#d6d6d6>"
+    suffix: " <#d6d6d6>◆"
+    min-elo: 1300
+  silver2:
+    name: "<#d6d6d6>◆ Demir II</#d6d6d6>"
+    number-color: "<#d6d6d6>"
+    suffix: " <#d6d6d6>◆"
+    min-elo: 1400
+  silver3:
+    name: "<#d6d6d6>◆ Demir III</#d6d6d6>"
+    number-color: "<#d6d6d6>"
+    suffix: " <#d6d6d6>◆"
+    min-elo: 1500
+  gold1:
+    name: "<#d1c42e>◆ Altın I</#d1c42e>"
+    number-color: "<#d1c42e>"
+    suffix: " <#d1c42e>◆"
+    min-elo: 1600
+  gold2:
+    name: "<#d1c42e>◆ Altın II</#d1c42e>"
+    number-color: "<#d1c42e>"
+    suffix: " <#d1c42e>◆"
+    min-elo: 1700
+  gold3:
+    name: "<#d1c42e>◆ Altın III</#d1c42e>"
+    number-color: "<#d1c42e>"
+    suffix: " <#d1c42e>◆"
+    min-elo: 1800
+  emerald1:
+    name: "<#40cc2b>◆ Zümrüt I</#40cc2b>"
+    number-color: "<#40cc2b>"
+    suffix: " <#40cc2b>◆"
+    min-elo: 1900
+  emerald2:
+    name: "<#40cc2b>◆ Zümrüt II</#40cc2b>"
+    number-color: "<#40cc2b>"
+    suffix: " <#40cc2b>◆"
+    min-elo: 2000
+  emerald3:
+    name: "<#40cc2b>◆ Zümrüt III</#40cc2b>"
+    number-color: "<#40cc2b>"
+    suffix: " <#40cc2b>◆"
+    min-elo: 2100
+  diamond1:
+    name: "<#36e3d2>✦ Elmas I</#36e3d2>"
+    number-color: "<#36e3d2>"
+    suffix: " <#36e3d2>✦"
+    min-elo: 2200
+  diamond2:
+    name: "<#36e3d2>✦ Elmas II</#36e3d2>"
+    number-color: "<#36e3d2>"
+    suffix: " <#36e3d2>✦"
+    min-elo: 2300
+  diamond3:
+    name: "<#36e3d2>✦ Elmas III</#36e3d2>"
+    number-color: "<#36e3d2>"
+    suffix: " <#36e3d2>✦"
+    min-elo: 2400
+  netherite1:
+    name: "<#31292A>✦ Netherite I</#31292A>"
+    number-color: "<#31292A>"
+    suffix: " <#31292A>✦"
+    min-elo: 2500
+  netherite2:
+    name: "<#31292A>✦ Netherite II</#31292A>"
+    number-color: "<#31292A>"
+    suffix: " <#31292A>✦"
+    min-elo: 2600
+  netherite3:
+    name: "<#31292A>✦ Netherite III</#31292A>"
+    number-color: "<#31292A>"
+    suffix: " <#31292A>✦"
+    min-elo: 2700
+  champion:
+    name: "<#c45de3>★ Şampiyon</#c45de3>"
+    number-color: "<#c45de3>"
+    suffix: " <#c45de3>★"
+    min-elo: 2800
+
+# Ranked Queue Ayarlari
+ranked-queue:
+  command: ""
+  timeout-seconds: 96
+  min-range: 100
+  max-range: 6000
+
+  worlds:
+    - sand
+    - plains
+    - snow
+    - mushroom
+    - badlands
+  requirements:
+    enabled: true
+    conditions:
+      - placeholder: "%statistic_player_kills%"
+        min: 20
+
+  escape:
+    enabled: true
+    max-distance: 150.0
+    warning-message: "&8&l➜&r <red>Dereceli maçtan kaçamazsın! Uyarı (%strike%/3)"
+    teleport-message: "&8&l➜&r <red>Çok uzaklaştın, geri ışınlandın!"
+    warning-sound: "ENTITY_ENDERMAN_TELEPORT"
+
+# Streak Sistemi
+streak-system:
+  enabled: true
+  min-streak-for-bonus: 4
+  bonus-per-win: 0.1
+  loss-protection-streak: 4
+
+# Lig Ayarları
+leagues:
+  middle:
+    enabled: true
+    min-elo: 1000
+    totem-limit: 14
+  upper:
+    enabled: true
+    min-elo: 1800
+    totem-limit: 8
+  master:
+    enabled: true
+    min-elo: 2300
+    totem-limit: 4
+
+# Mesajlar ve Sesler
+messages:
+  lowest-queue-joined: "<gray>Düşük Lig sırasına katıldın! [%current% kişi bekliyor]"
+  lower-queue-joined: "<green>Orta Lig sırasına katıldın! <gray>[%current% kişi bekliyor]"
+  upper-queue-joined: "<light_purple>Yüksek Lig sırasına katıldın! <gray>[%current% kişi bekliyor]"
+  queue-left: "&8&l➜&r <gray>Sıradan çıktın."
+  queue-timeout: "&8&l➜&r <#d1c42e>Sırada uzun süre beklediğin için sıran temizlendi."
+  queue-matched: "&8&l➜&r <green>Rakip bulundu! Işınlanıyorsun..."
+  queue-requirements-failed: "&8&l➜&r <red>Dereceli sıraya girmek için 20 öldürme sayısına ulaşmalısın!"
+  not-visible: ""
+
+# Yeni Eşleşme Bildirimleri ve Geri Sayım
+matchmaking-notifications:
+  countdown-seconds: 3
+  leagues:
+    lowest:
+      title: "<green>Eşleşme Bulundu!"
+      subtitle: "<gray>Bölge: %world% | Başlıyor: <white>%time%"
+    middle:
+      title: "<green>Eşleşme Bulundu!"
+      subtitle: "<gray>Bölge: %world% | Başlıyor: <white>%time%"
+    upper:
+      title: "<light_purple>Eşleşme Bulundu!"
+      subtitle: "<gray>Bölge: %world% | Başlıyor: <white>%time%"
+    master:
+      title: "<gold><bold>Eşleşme Bulundu!"
+      subtitle: "<gray>Bölge: %world% | Başlıyor: <white>%time%"
+  sounds:
+    match-found: "ENTITY_EXPERIENCE_ORB_PICKUP"
+    countdown: "BLOCK_NOTE_BLOCK_PLING"
+
+# Maç Başladığında Gösterilecek Bildirim
+match-start-notification:
+  title: "<green><bold>MAÇ BAŞLADI"
+  subtitle: "<white>Rakibini yen ve ELO kazan! Bol şans."
+  sound: "ENTITY_PLAYER_LEVELUP"
+
+# Ranked Bölge Koruması
+# Başka oyuncuların ranked alanına girmesini engeller
+protection:
+  enabled: true
+  message: "&8&l➜&r <red>Burada dereceli maç oynanıyor! Başka yere gitmelisin."
+
+sounds:
+  queue-join: "BLOCK_NOTE_BLOCK_PLING"
+  queue-error: "ENTITY_VILLAGER_NO"
+  queue-match: "ENTITY_PLAYER_LEVELUP"
+
+# Ranked esnasinda komut kisitlamasi
+match-commands:
+  enabled: true
+  allowed:
+    - "/msg"
+    - "/r"
+    - "/reply"
+  blocked-message: "&8&l➜&r <red>Dereceli maçtayken sadece belirli komutlari kullanabilirsin!"
+
+anti-abuse:
+  # Ayni IP adresinden giren kisiler ELO alamaz/kaybedemez
+  block-same-ip: true
+  # Oyuncular ust uste oynarsa verilecek ceza (Dakika)
+  match-cooldown:
+    enabled: true
+    cooldown-minutes: 10
+    # Cooldown suresi icinde atilan macta verilecek MAX elo
+    max-gain: 5
+
+smart-elo:
+  enabled: true
+  multiplier-impact: 0.2
+  multiplier:
+    min: 0.85
+    max: 1.25
+  tolerance:
+    small-diff-threshold: 0.06
+  duration:
+    full-score-seconds: 180
+  max-extra-gain: 12
+  max-extra-loss: 12
+  weights:
+    damage: 0.45
+    crystal: 0.20
+    anchor: 0.15
+    totem: 0.15
+    duration: 0.05
+
+ranked-history:
+  enabled: true
+  expire-seconds: 600
+  max-stored-matches-per-player: 20
+  match-summary-click: "<yellow>Mac ozeti icin tikla <gray>(%match_uuid%)"
+  match-summary-hover: "<gray>Gecmis UUID: <white>%match_uuid%</white>"
+
+# Sıradayken (Queue) komut kısıtlaması
+queue-commands:
+  enabled: true
+  allowed:
+    - "/rankedqueue"
+    - "/rtpranked"
+    - "/rq"
+    - "/msg"
+    - "/r"
+  blocked-message: "<red>Sıradayken sadece belirli komutları kullanabilirsin! Sıradan çıkmak için: <white>/rankedqueue"
+
+# Ranked Eşya ve İksir Kısıtlamaları
+restrictions:
+  enabled: true
+  # Yasaklı eşyalar (Material isimleri)
+  blacklisted-items:
+    - "ENDER_CHEST"
+  # Yasaklı iksir efektleri (PotionEffectType isimleri)
+  blacklisted-potions:
+    - "TURTLE_MASTER" # Strength
+    - "WEAKNESS"        # Weakness

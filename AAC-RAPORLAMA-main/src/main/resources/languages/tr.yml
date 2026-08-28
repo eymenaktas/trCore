@@ -1,0 +1,87 @@
+prefix: "&8[&4AAC&8] &f"
+
+no-permission: "&4Bu komutu kullanmak için yetkiniz bulunuyor"
+player-only: "Bu komut sadece oyuncular tarafından kullanılabilir"
+player-not-found: "&cOyuncu bulunamadı"
+cannot-report-self: "&4Kendinizi raporlayamazsınız"
+report-cooldown: "&fRapor göndermek için &6{time} &fsaniye beklemelisiniz"
+report-sent: "Rapor başarıyla gönderildi"
+report-alert: "&6{reporter} &fOyuncu &6{reported} &fAdlı Oyuncuyu &4{reason} &fSebebiyle Raporladı İncelemek için &6/raporlar"
+enter-report-reason: "&6{player} &fadlı oyuncuyu raporlamak için sohbetten sebep yazın İptal etmek için &ciptal &fyazın."
+report-cancelled: "&cRaporlama işlemi iptal edildi"
+
+commands:
+  no-permission: "&cBu komutu kullanmak için yetkiniz yok"
+
+  aacsystem:
+    usage: "&8[&4AAC&8] &fYanlış Kullanım Doğrusu &6/aacsystem reload | help | alerts"
+    unknown-subcommand: "&cBilinmeyen komut /aacsystem reload | help | alerts bunlardan birini kullanın"
+
+    reload:
+      success: "&aAAC Configi ve dil dosyları başarıyla yeniden yüklendi"
+      error: "&cAAC Configi yeniden yüklenirken bir hata oluştu"
+
+    help:
+      header: "&6AAC Sistem Komutları"
+      reload: "&6/aacsystem reload &e- &7Config.yml ve dil dosyalarını yeniden yükler"
+      help: "&6/aacsystem help &e- &7Bu yardım menüsünü gösterir"
+      alerts: "&6/aacsystem alerts &e- &7Rapor uyarı mesajlarını aç/kapat"
+
+    alerts:
+      enabled: "&8[&4AAC&8] &aRapor uyarıları senin için etkinleştirildi"
+      disabled: "&8[&4AAC&8] &cRapor uyarıları senin için devre dışı bırakıldı"
+
+gui:
+  glass-name: " "
+  back-button: "&cÖnceki Sayfa"
+  selected: "&aSeçildi"
+  click-to-select: "&cSeçmek için tıklayın"
+  report-detail.title: "&6Rapor Detayları"
+  send-report: "&2Raporu Gönder"
+  send-report-desc: "Seçilen sebep ile raporu gönder"
+  click: "&2Göndermek İçin Tıklayın"
+  disabled: "Devre dışı"
+  select-reason-first: "Önce bir rapor sebebi seçin"
+  
+  report-player:
+    title: "Oyuncu Seç"
+    player-head-lore: "&7Raporlamak için tıkla"
+    next-page: "&aSonraki Sayfa"
+    previous-page: "&cÖnceki Sayfa"
+  
+  report-reasons:
+    title: "Rapor Sebebi Seç"
+    hacking: "&fHile Kullanımı"
+    hacking-lore: "&7Bu oyuncuyu hile kullanımı sebebiyle raporla"
+    swearing: "&fKüfür"
+    swearing-lore: "&7Bu oyuncuyu küfür sebebiyle raporla"
+    inappropriate-name: "&fUygunsuz İsim"
+    inappropriate-name-lore: "&7Bu oyuncuyu uygunsuz isim sebebiyle raporla"
+    spam: "&fSpam"
+    spam-lore: "&7Bu oyuncuyu spam sebebiyle raporla"
+    griefing: "&fElitra Target "
+    griefing-lore: "&7Bu oyuncuyu Elitra Target sebebiyle raporla"
+    other: "&fDiğer"
+    other-lore: "&7Bu oyuncuyu diğer sebebiyle raporla"
+  
+  reports:
+    title: "Raporlar"
+    reporter: " &7- &fRapor Eden"
+    reason: " &7- &fSebep"
+    date: " &7- &fTarih"
+    time: " &7- &fSaat"
+    last-messages: "&6Son Mesajlar"
+    click-to-view: "&fDetaylı incelemek için tıklayın"
+    shift-right-click-to-delete: "&4Silmek için Shift + Sağ Tık"
+    no-reports: "&cHenüz rapor bulunmuyor"
+    no-messages-found: "&4Mesaj bulunamadı"
+  
+  aacwatch:
+    title: "Oyuncu İzleme Menüsü"
+    player-lore: "&7İzlemek için tıkla"
+    player-head-lore: "&7İzlemek için tıkla"
+    previous-page: "&cÖnceki Sayfa"
+    next-page: "&aSonraki Sayfa"
+
+aacwatch:
+  teleported: "&a{player} &foyuncusuna ışınlandınız"

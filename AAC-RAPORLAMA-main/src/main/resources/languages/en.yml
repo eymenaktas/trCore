@@ -1,0 +1,89 @@
+prefix: "&8[&4AAC&8] &f"
+
+no-permission: "You don't have permission to use this command"
+player-only: "This command can only be used by players"
+player-not-found: "Player not found"
+cannot-report-self: "You cannot report yourself"
+report-cooldown: "&fYou must wait &6{time} &fseconds before reporting again"
+report-sent: "&aReport sent successfully"
+report-alert: "&6{reporter} &fReported player &6{reported} &ffor &4{reason} &fCheck with &6/raporlar"
+enter-report-reason: "&fType the reason in chat to report &6{player} &fType &ccancel &fto cancel."
+report-cancelled: "&cReport cancelled"
+
+commands:
+  no-permission: "&cYou dont have permission to use this command"
+
+  aacsystem:
+    usage: "&4/aacsystem reload help alerts"
+    unknown-subcommand: "&cUnknown subcommand Usage /aacsystem reload | help | alerts"
+
+    reload:
+      success: "&aAAC configuration and language files reloaded successfully"
+      error: "&cAn error occurred while reloading AAC configuration"
+
+    help:
+      header: "&6AAC System Commands"
+      reload: "&6/aacsystem reload &e- &7Reloads Config.yml and language files"
+      help: "&6/aacsystem help &e- &7Shows this help menu"
+      alerts: "&6/aacsystem alerts &e- &7Toggle report alert messages"
+
+    alerts:
+      enabled: "&aReport alerts have been enabled for you."
+      disabled: "&cReport alerts have been disabled for you."
+
+gui:
+  glass-name: " "
+  back-button: "&cBack page"
+  selected: "Selected"
+  click-to-select: "&fClick to select"
+  report-detail.title: "&6Rapor Detayları"
+  report-detail.back: "&6Geri Dön"
+  report-detail.back-lore: "&fÖnceki Sayfaya Dönmek İçin Tıklayın"
+  send-report: "&6Send Report"
+  send-report-desc: "&fSend report with selected reason"
+  click: "&fClick"
+  disabled: "&fDisabled"
+  select-reason-first: "&fSelect a report reason first"
+  
+  report-player:
+    title: "&cReport Player"
+    player-head-lore: "&fClick to report"
+    previous-page: "&aPrevious Page"
+    next-page: "&aNext Page"
+  
+  report-reasons:
+    title: "&7Select Report Reason"
+    hacking: "&cHacking/Cheating"
+    hacking-lore: "&fPlayer is using hacks"
+    swearing: "&cSwearing/Insulting"
+    swearing-lore: "&fPlayer is swearing"
+    inappropriate-name: "&cInappropriate Name"
+    inappropriate-name-lore: "&fPlayer has inappropriate name"
+    spam: "&cSpam"
+    spam-lore: "&fPlayer is spamming"
+    griefing: "&cGriefing"
+    griefing-lore: "&fPlayer is griefing"
+    other: "&cOther"
+    other-lore: "&fOther reasons"
+  
+  reports:
+    title: "&cReports"
+    reporter: "&7Reporter"
+    reason: "&7Reason"
+    date: "&7Date"
+    time: "&7Time"
+    last-messages: "&7Last Messages"
+    click-to-view: "&cClick to view details"
+    shift-right-click-to-delete: "&cShift + Right Click to delete"
+    report-lore: "&fClick to view details"
+    no-messages-found: "&6No messages found"
+  
+  aacwatch:
+    title: "&cPlayer Watch Menu"
+    player-lore: "&fClick to watch"
+    player-head-lore: "&fClick to watch"
+    previous-page: "&cPrevious Page"
+    next-page: "&aNext Page"
+
+aacwatch:
+  teleported: "&fTeleported to &a{player}"

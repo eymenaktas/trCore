@@ -1,0 +1,89 @@
+list:
+  title: "&6Ranked History &7[%page%/%max_page%]"
+  items:
+    win:
+      material: "LIME_DYE"
+    loss:
+      material: "RED_DYE"
+    name: "&e%opponent% &7| &f%match_short%"
+    lore:
+      - "&7Sure: &f%duration%s"
+      - "&7ELO: &f%elo_change%"
+      - "&7Rakip UUID: &f%opponent_uuid%"
+      - "&8Ozetini gormek icin tikla"
+  previous:
+    material: "ARROW"
+    name: "&aOnceki Sayfa"
+  next:
+    material: "ARROW"
+    name: "&aSonraki Sayfa"
+
+detail:
+  title: "&7 Maç Detayı"
+  center:
+    material: "CLOCK"
+    name: "&eGenel Bilgi"
+    lore:
+      - "&7Süre: &f%duration%s"
+      - "&7UUID: &f%match_uuid%"
+  item-lore:
+    - "&7Oyuncu: &f%name%"
+    - "&7ELO: &f%elo%"
+    - "&7Rutbe: %rank%"
+    - "&7Kalan Can: &f%health%"
+    - "&7Totem Pop: &f%totem%"
+    - "&7Crystal: &f%crystal%"
+    - "&7Anchor: &f%anchor%"
+    - "&7Toplam Hasar: &f%damage%"
+    - "&7ELO Degisim: &f%elo_change%"
+    - "&8Envanteri gormek icin ilgili iteme tikla"
+  items:
+    name:
+      material: "PLAYER_HEAD"
+      name: "&b%name%"
+      lore:
+        - ""
+    elo:
+      material: "GOLD_INGOT"
+      name: "&#f5ff8aELO: &f%elo%"
+      lore:
+        - "&7Şuanki Elo: &f%elo%"
+        - "&7Kazanılan/Kaybedilen: &f%elo_change%"
+    rank:
+      material: "NETHER_STAR"
+      name: "&#dbfbffRütbe"
+      lore:
+        - "%rank%"
+    health:
+      material: "APPLE"
+      name: "&#ffa1a1Kalan Can"
+      lore:
+        - "&#ffa1a1%health%"
+    totem:
+      material: "TOTEM_OF_UNDYING"
+      name: "&#efffa1Patlayan Totem"
+      lore:
+        - "&#efffa1%totem%"
+    crystal:
+      material: "END_CRYSTAL"
+      name: "&#ffa1ffPatlatılan Kristal"
+      lore:
+        - "&#ffa1ff%crystal%"
+    anchor:
+      material: "RESPAWN_ANCHOR"
+      name: "&#20074aPatlatılan Anchor"
+      lore:
+        - "&#20074a%anchor%"
+    damage:
+      material: "IRON_SWORD"
+      name: "&fToplam Alınan Hasar"
+      lore:
+        - "&f%damage%"
+    inventory:
+      material: "CHEST"
+      name: "&#ffca6eEnvanteri Görüntüle"
+      lore:
+        - "&#ffca6e%name%'in Envanterini Açmak İçin Tıkla"
+
+inventory:
+  title: "&f%player% Envanteri"

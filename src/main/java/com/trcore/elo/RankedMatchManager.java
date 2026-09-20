@@ -604,19 +604,24 @@ public class RankedMatchManager {
         double wc = cfg.getDouble("smart-elo.weights.crystal", 0.2);
         double wa = cfg.getDouble("smart-elo.weights.anchor", 0.15);
         double wt = cfg.getDouble("smart-elo.weights.totem", 0.15);
-        double ws = cfg.getDouble("smart-elo.weights.duration", 0.05);
 
         double durationSec = Math.max(1.0, (System.currentTimeMillis() - match.getStartTime()) / 1000.0);
-        double durationFactor = Math.min(1.0, durationSec / Math.max(1.0, cfg.getDouble("smart-elo.duration.full-score-seconds", 180.0)));
+        // Cok kisa maclarda tek bir kristal orani ucurdugu icin veri guvenilmez;
+        // bu esigin altinda klasik Elo uygulanir.
+        if (durationSec < cfg.getDouble("smart-elo.duration.min-seconds", 20.0)) return base;
 
         double damageShare = ratio(wDamage, lDamage);
         double crystalShare = ratio(wCrystal, lCrystal);
         double anchorShare = ratio(wAnchor, lAnchor);
-        double totemShare = ratio(wTotem, lTotem);
+        // Totem, oyuncunun KENDI patlattigi totemdir: cok patlatmak kotu oynadigini
+        // gosterir, bu yuzden ters cevriliyor. (Eskiden duz eklenip odullendiriliyordu.)
+        double totemShare = 1.0 - ratio(wTotem, lTotem);
 
-        double winnerEffort = (damageShare * wd) + (crystalShare * wc) + (anchorShare * wa) + (totemShare * wt) + (durationFactor * ws);
-        double loserEffort = ((1.0 - damageShare) * wd) + ((1.0 - crystalShare) * wc) + ((1.0 - anchorShare) * wa) + ((1.0 - totemShare) * wt) + (durationFactor * ws);
+        double winnerEffort = (damageShare * wd) + (crystalShare * wc) + (anchorShare * wa) + (totemShare * wt);
+        double loserEffort = ((1.0 - damageShare) * wd) + ((1.0 - crystalShare) * wc) + ((1.0 - anchorShare) * wa) + ((1.0 - totemShare) * wt);
 
+        // ws (sure agirligi) iki tarafa da ayni eklendigi icin farka hic yansimiyordu;
+        // sure artik yukaridaki esikle degerlendiriliyor.
         double delta = winnerEffort - loserEffort;
         if (Math.abs(delta) <= tolerance) {
             return base;

@@ -252,23 +252,42 @@ anti-abuse:
     max-gain: 5
 
 smart-elo:
+  # Mac sonucu klasik Elo ile hesaplanir, sonra macin nasil gectigine gore
+  # carpanla duzeltilir. Carpan hem kazananin aldigina hem kaybedenin
+  # kaybettigine uygulanir: ezici galibiyet iki tarafta da daha sert biter.
   enabled: true
-  multiplier-impact: 0.2
+
+  # Fark (delta) -1 ile +1 arasindadir; carpan = 1 + delta * impact.
+  # 0.25 => tam ustunlukte %25 fazla, tam cekismede %25 az.
+  multiplier-impact: 0.25
   multiplier:
-    min: 0.85
+    min: 0.75
     max: 1.25
+
   tolerance:
-    small-diff-threshold: 0.06
+    # Iki oyuncu bu kadar yakin oynadiysa hic duzeltme yapilmaz.
+    # 0.08 = kabaca 54/46'lik bir ustunluk hala "esit" sayilir.
+    small-diff-threshold: 0.08
+
   duration:
-    full-score-seconds: 180
-  max-extra-gain: 12
-  max-extra-loss: 12
+    # Bu sureden kisa maclarda istatistik guvenilmez (tek kristal orani ucurur),
+    # klasik Elo uygulanir.
+    min-seconds: 20
+
+  # Guvenlik siniri: duzeltme temel Elo'dan bu kadar puan uzaklasamaz.
+  max-extra-gain: 10
+  max-extra-loss: 10
+
+  # Agirliklar toplami 1.0 olmali; boylece delta tam araligi kullanir.
   weights:
-    damage: 0.45
+    # Rakibe verilen hasar: ustunlugun en durust olculeri
+    damage: 0.50
+    # Patlatilan kristal: baski kurma
     crystal: 0.20
+    # Patlatilan anchor
     anchor: 0.15
+    # Patlayan kendi totemi: AZ patlatan iyi oynamistir (ters cevrilir)
     totem: 0.15
-    duration: 0.05
 
 ranked-history:
   enabled: true

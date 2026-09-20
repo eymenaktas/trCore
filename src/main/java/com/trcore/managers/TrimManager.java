@@ -57,7 +57,8 @@ public class TrimManager {
 
     public TrimGroup getPlayerGroup(Player player) {
         for (TrimGroup group : sortedGroups) {
-            if (player.hasPermission("trcore.trim." + group.getName())) {
+            if (player.hasPermission("iocore.trim." + group.getName())
+                    || player.hasPermission("trcore.trim." + group.getName())) {
                 return group;
             }
         }

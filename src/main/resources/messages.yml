@@ -72,7 +72,7 @@ tpa:
   already-sent: "<red>Zaten bekleyen bir isteğin var. Önce iptal et: /tpacancel</red>"
   usage: "<gray>Kullanım: /tpa <oyuncu></red>"
   timeout: "<red>İstek zaman aşımına uğradı.</red>"
-  bossbar: "<!italic><green><bold>ᴛᴘᴀᴜᴛᴏ ᴀᴋᴛɪꜰ!"
+  bossbar: "<!italic><#8ccefe><bold>ᴛᴘᴀᴜᴛᴏ ᴀᴋᴛɪꜰ!"
   auto-accepted-target: "<green>%player%</green> <gray>adlı oyuncunun ışınlanma isteğini otomatik olarak kabul ettiniz."
 tpa-event:
   broadcast: " <newline> <gradient:#f26fdf:#d74ddb><bold>%player%</gradient> <white>Herkesi Yanına Çağırıyor</white> <newline>                             <click:run_command:/tpaevent join ><light_purple>[ᴋᴀʙᴜʟ ᴇᴛ]</light_purple></click>"

@@ -63,6 +63,12 @@ public class TRCoreCommand implements CommandExecutor {
 
             if (plugin.getDisguiseManager() != null) plugin.getDisguiseManager().load();
 
+            // Ceza sebepleri (cezalar.yml)
+            if (plugin.getCezaManager() != null) {
+                plugin.getCezaManager().gecmisiKaydet();
+                plugin.getCezaManager().load();
+            }
+
             // 11. Cached listener/manager config'lerini yeniden yükle
             if (plugin.getSpawnListener() != null)
                 plugin.getSpawnListener().loadConfig();

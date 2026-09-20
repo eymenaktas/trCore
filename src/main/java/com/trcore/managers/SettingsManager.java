@@ -407,7 +407,7 @@ public class SettingsManager implements Listener {
     public void showAutoTpaBossBar(Player player) {
         hideAutoTpaBossBar(player);
         net.kyori.adventure.text.Component title = CC.get("tpa.bossbar"); // Configden okur
-        BossBar bar = BossBar.bossBar(title, 1.0f, BossBar.Color.GREEN, BossBar.Overlay.PROGRESS);
+        BossBar bar = BossBar.bossBar(title, 1.0f, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
         player.showBossBar(bar);
         autoTpaBars.put(player.getUniqueId(), bar);
     }

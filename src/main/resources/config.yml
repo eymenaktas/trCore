@@ -179,3 +179,24 @@ menu-commands:
     aliases:
       - settings
       - ayar
+
+
+# Ban efekti: Ecstacy cezayi uygulamadan hemen once oyuncunun uzerinde bir
+# olum efekti oynatilir, ardindan ceza uygulanir.
+# Ecstacy'nin FlagEvent'i iptal edilir -> tespit, ihlal puani ve panel kaydi
+# yerinde kalir, yalnizca cezayi biz veririz.
+ban-efekti:
+  enabled: true
+  # ExyliaKillEffect'teki efektin id'si (effects.yml anahtari, kucuk harf)
+  efekt: banned
+  # Efektin oynamasi icin beklenen sure (tik). 45 tik = 2.25 saniye
+  gecikme-tik: 45
+  # Ban sebebi. %check% %vl% %maxvl% kullanilabilir
+  sebep: "Hile tespit edildi (%check%)"
+  # Cezayi uygulayan komut. LiteBans sozdizimi; -s sessiz ceza demek.
+  komut: "tempban %player% 30d %reason%"
+  # Banlayan olarak duyuruda gorunecek ad. Bosluk kullanma: LiteBans'in
+  # --sender bayragi boslukta kesilir, geri kalani sebebe karisir.
+  yetkili-adi: "EcstacyAC"
+  # true iken efekt oynar ama kimse banlanmaz (test icin).
+  deneme: false

@@ -59,6 +59,16 @@ public class TRCore extends JavaPlugin {
     private ChatListener chatListener;
     private com.trcore.listeners.features.ItemClearListener itemClearListener;
     private com.trcore.listeners.features.SpawnListener spawnListener;
+    private com.trcore.listeners.features.BanEfekti banEfekti;
+    private com.trcore.managers.CezaManager cezaManager;
+
+    public com.trcore.managers.CezaManager getCezaManager() {
+        return cezaManager;
+    }
+
+    public com.trcore.listeners.features.BanEfekti getBanEfekti() {
+        return banEfekti;
+    }
     private ActionbarListener actionbarListener;
     private PlayerListener playerListener;
     private WorldChangeListener worldChangeListener;
@@ -88,6 +98,7 @@ public class TRCore extends JavaPlugin {
         if (toggleManager != null) toggleManager.saveData();
         if (nightVisionManager != null) nightVisionManager.saveData();
         if (eloManager != null) eloManager.saveAllData();
+        if (cezaManager != null) cezaManager.gecmisiKaydet();
         getLogger().info("trCore devre disi birakildi!");
     }
 
@@ -180,6 +191,9 @@ public class TRCore extends JavaPlugin {
         registerCmd("gmsp", adminExecutor);
         registerCmd("fly", adminExecutor);
         registerCmd("walkspeed", adminExecutor);
+        registerCmd("banefekt", new com.trcore.commands.BanEfektCommand(this));
+        registerCmd("iopunish", new com.trcore.commands.IoPunishCommand(this), "ceza", "punish");
+        registerCmd("unpunish", new com.trcore.commands.UnpunishCommand(this), "cezakaldir", "unban2");
         registerCmd("flyspeed", adminExecutor);
         registerCmd("lightning", adminExecutor);
         registerCmd("sudo", adminExecutor);
@@ -256,6 +270,15 @@ public class TRCore extends JavaPlugin {
 
         PacketEvents.getAPI().getEventManager()
                 .registerListener(new OutgoingPlayerDeathListener(this, deathListener));
+
+        // Ban efekti: Ecstacy cezayi uygulamadan once sahne oynatilir
+        banEfekti = new com.trcore.listeners.features.BanEfekti(this);
+        cezaManager = new com.trcore.managers.CezaManager(this);
+        cezaManager.load();
+        cezaManager.kaydetmeDongusu();
+        banEfekti.kur();
+
+
     }
 
     private void registerMenuCommands() {

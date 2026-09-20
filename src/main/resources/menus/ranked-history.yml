@@ -1,89 +1,106 @@
+# Maç izleme menüsü — Exylia menü dili: smallcaps başlık, "▎" ile girintili
+# satırlar, "»" ayracı ve tek bir vurgu rengi.
+
 list:
-  title: "&6Ranked History &7[%page%/%max_page%]"
+  title: "<!italic><dark_gray>ᴍᴀç ɢᴇçᴍɪşɪ <#4a5a6a>[%page%/%max_page%]"
   items:
     win:
       material: "LIME_DYE"
     loss:
       material: "RED_DYE"
-    name: "&e%opponent% &7| &f%match_short%"
+    name: "<!italic><#8ccefe>&l%opponent% <#4a5a6a>» <white>%match_short%"
     lore:
-      - "&7Sure: &f%duration%s"
-      - "&7ELO: &f%elo_change%"
-      - "&7Rakip UUID: &f%opponent_uuid%"
-      - "&8Ozetini gormek icin tikla"
+      - "<!italic>&f"
+      - "<!italic><#4a5a6a>▎ <#a8c6dd>Süre <#4a5a6a>» <white>%duration%s"
+      - "<!italic><#4a5a6a>▎ <#a8c6dd>ELO <#4a5a6a>» <white>%elo_change%"
+      - "<!italic>&f"
+      - "<!italic><#8ccefe>➥ Maç özetini açmak için tıkla"
   previous:
     material: "ARROW"
-    name: "&aOnceki Sayfa"
+    name: "<!italic><#8ccefe>← öɴᴄᴇᴋɪ ꜱᴀʏꜰᴀ"
   next:
     material: "ARROW"
-    name: "&aSonraki Sayfa"
+    name: "<!italic><#8ccefe>ꜱᴏɴʀᴀᴋɪ ꜱᴀʏꜰᴀ →"
 
 detail:
-  title: "&7 Maç Detayı"
+  title: "<!italic><dark_gray>ᴍᴀç öᴢᴇᴛɪ"
   center:
     material: "CLOCK"
-    name: "&eGenel Bilgi"
+    name: "<!italic><#8ccefe>&lɢᴇɴᴇʟ ʙɪʟɢɪ"
     lore:
-      - "&7Süre: &f%duration%s"
-      - "&7UUID: &f%match_uuid%"
+      - "<!italic>&f"
+      - "<!italic><#4a5a6a>▎ <#a8c6dd>Süre <#4a5a6a>» <white>%duration%s"
+      - "<!italic><#4a5a6a>▎ <#a8c6dd>Maç <#4a5a6a>» <#4a5a6a>%match_uuid%"
   item-lore:
-    - "&7Oyuncu: &f%name%"
-    - "&7ELO: &f%elo%"
-    - "&7Rutbe: %rank%"
-    - "&7Kalan Can: &f%health%"
-    - "&7Totem Pop: &f%totem%"
-    - "&7Crystal: &f%crystal%"
-    - "&7Anchor: &f%anchor%"
-    - "&7Toplam Hasar: &f%damage%"
-    - "&7ELO Degisim: &f%elo_change%"
-    - "&8Envanteri gormek icin ilgili iteme tikla"
+    - "<!italic>&f"
+    - "<!italic><#4a5a6a>▎ <#a8c6dd>Oyuncu <#4a5a6a>» <white>%name%"
+    - "<!italic><#4a5a6a>▎ <#a8c6dd>Rütbe <#4a5a6a>» %rank%"
+    - "<!italic><#4a5a6a>▎ <#a8c6dd>ELO <#4a5a6a>» <white>%elo% <#4a5a6a>(<white>%elo_change%<#4a5a6a>)"
+    - "<!italic>&f"
+    - "<!italic><#4a5a6a>▎ <#a8c6dd>Kalan can <#4a5a6a>» <white>%health%"
+    - "<!italic><#4a5a6a>▎ <#a8c6dd>Toplam hasar <#4a5a6a>» <white>%damage%"
+    - "<!italic><#4a5a6a>▎ <#a8c6dd>Totem <#4a5a6a>» <white>%totem%"
+    - "<!italic><#4a5a6a>▎ <#a8c6dd>Kristal <#4a5a6a>» <white>%crystal%"
+    - "<!italic><#4a5a6a>▎ <#a8c6dd>Anchor <#4a5a6a>» <white>%anchor%"
+    - "<!italic>&f"
+    - "<!italic><#8ccefe>➥ Envanteri görmek için tıkla"
   items:
     name:
       material: "PLAYER_HEAD"
-      name: "&b%name%"
+      name: "<!italic><#8ccefe>&l%name%"
       lore:
-        - ""
+        - "<!italic>&f"
     elo:
       material: "GOLD_INGOT"
-      name: "&#f5ff8aELO: &f%elo%"
+      name: "<!italic><#8ccefe>&lᴇʟᴏ"
       lore:
-        - "&7Şuanki Elo: &f%elo%"
-        - "&7Kazanılan/Kaybedilen: &f%elo_change%"
+        - "<!italic>&f"
+        - "<!italic><#4a5a6a>▎ <#a8c6dd>Güncel <#4a5a6a>» <white>%elo%"
+        - "<!italic><#4a5a6a>▎ <#a8c6dd>Değişim <#4a5a6a>» <white>%elo_change%"
     rank:
       material: "NETHER_STAR"
-      name: "&#dbfbffRütbe"
+      name: "<!italic><#8ccefe>&lʀüᴛʙᴇ"
       lore:
-        - "%rank%"
+        - "<!italic>&f"
+        - "<!italic><#4a5a6a>▎ %rank%"
     health:
       material: "APPLE"
-      name: "&#ffa1a1Kalan Can"
+      name: "<!italic><#8ccefe>&lᴋᴀʟᴀɴ ᴄᴀɴ"
       lore:
-        - "&#ffa1a1%health%"
+        - "<!italic>&f"
+        - "<!italic><#4a5a6a>▎ <white>%health%"
     totem:
       material: "TOTEM_OF_UNDYING"
-      name: "&#efffa1Patlayan Totem"
+      name: "<!italic><#8ccefe>&lᴘᴀᴛʟᴀʏᴀɴ ᴛᴏᴛᴇᴍ"
       lore:
-        - "&#efffa1%totem%"
+        - "<!italic>&f"
+        - "<!italic><#4a5a6a>▎ <white>%totem%"
     crystal:
       material: "END_CRYSTAL"
-      name: "&#ffa1ffPatlatılan Kristal"
+      name: "<!italic><#8ccefe>&lᴘᴀᴛʟᴀᴛıʟᴀɴ ᴋʀɪꜱᴛᴀʟ"
       lore:
-        - "&#ffa1ff%crystal%"
+        - "<!italic>&f"
+        - "<!italic><#4a5a6a>▎ <white>%crystal%"
     anchor:
       material: "RESPAWN_ANCHOR"
-      name: "&#20074aPatlatılan Anchor"
+      name: "<!italic><#8ccefe>&lᴘᴀᴛʟᴀᴛıʟᴀɴ ᴀɴᴄʜᴏʀ"
       lore:
-        - "&#20074a%anchor%"
+        - "<!italic>&f"
+        - "<!italic><#4a5a6a>▎ <white>%anchor%"
     damage:
       material: "IRON_SWORD"
-      name: "&fToplam Alınan Hasar"
+      name: "<!italic><#8ccefe>&lᴀʟıɴᴀɴ ʜᴀꜱᴀʀ"
       lore:
-        - "&f%damage%"
+        - "<!italic>&f"
+        - "<!italic><#4a5a6a>▎ <white>%damage%"
     inventory:
       material: "CHEST"
-      name: "&#ffca6eEnvanteri Görüntüle"
+      name: "<!italic><#8ccefe>&lᴇɴᴠᴀɴᴛᴇʀ"
       lore:
-        - "&#ffca6e%name%'in Envanterini Açmak İçin Tıkla"
+        - "<!italic>&f"
+        - "<!italic><#4a5a6a>▎ <#a8c6dd>%name% <#4a5a6a>oyuncusunun envanteri"
+        - "<!italic>&f"
+        - "<!italic><#8ccefe>➥ Açmak için tıkla"
 
 inventory:
-  title: "&f%player% Envanteri"
+  title: "<!italic><dark_gray>%player% <#4a5a6a>» <#8ccefe>ᴇɴᴠᴀɴᴛᴇʀ"

@@ -1,0 +1,131 @@
+# ioCore — sebebe bağlı otomatik ceza
+#
+#   /iopunish <oyuncu> <sebep>          kademeyi geçmiş belirler
+#   /iopunish <oyuncu> <sebep> <no>     kademeyi elle seç (iocore.punish.kademe)
+#   /iopunish sebepler                  yetkinin verebildiği sebepler
+#   /iopunish reload                    bu dosyayı yeniden okur
+#
+# Kademe nasıl seçilir: oyuncunun aynı sebepten kaçıncı cezası olduğuna bakılır.
+# İlk ceza listenin ilk satırı, ikincisi ikinci satırı... Liste bitince son satır
+# tekrar eder. "gecmis-gun" kadar süre geçmişse sayaç sıfırlanır.
+#
+# Komut değişkenleri: %player% %uuid% %reason% %sebep% %staff%
+# Komutlar konsoldan çalışır, ceza eklentisi LiteBans'tır.
+
+ayarlar:
+  # Bir cezanın kademe sayacında kaç gün boyunca sayıldığı.
+  gecmis-gun: 90
+  # Eklentinin kendi tek satırlık duyurusu. LiteBans ban/kick cezalarını
+  # zaten herkese ilan ettiği için kapalı; açarsan ban iki kez duyurulur.
+  duyuru: false
+  # Efektli sebeplerde efekt ile ceza arasındaki tik farkı (20 tik = 1 saniye).
+  efekt-gecikme-tik: 60
+  # Cezayı veren yetkilinin adı LiteBans duyurusunda görünsün mü (--sender).
+  # Ad boşluksuz olmalı; boşluk bayrağı böler, gerisi sebebe karışır.
+  yetkili-adi-gorunsun: true
+
+mesajlar:
+  izin-yok: '<red>Bunun için yetkin yok.'
+  izin-yok-sebep: '<red>Bu sebeple ceza veremezsin.'
+  izin-yok-kademe: '<red>Kademeyi elle seçemezsin.'
+  kullanim: '<gray>Kullanım: <white>/iopunish <oyuncu> <sebep> [kademe]'
+  sebep-yok: '<red>Böyle bir sebep yok. <gray>/iopunish sebepler'
+  oyuncu-yok: '<red>Bu oyuncu bulunamadı.'
+  muaf: '<red>Bu oyuncu cezadan muaf.'
+  kendine: '<red>Kendine ceza veremezsin.'
+  kademe-sayi: '<red>Kademe bir sayı olmalı.'
+  uygulandi: '<#8ccefe>✔ <white>%player% <gray>» <white>%sebep%'
+  kaldir-kullanim: '<gray>Kullanım: <white>/unpunish <oyuncu>'
+  kaldirildi: '<#8ccefe>✔ <white>%player% <gray>üzerindeki ban ve susturma kaldırıldı.'
+  yenilendi: '<#8ccefe>✔ <gray>Ceza ayarları yenilendi. <dark_gray>(%sayi% sebep)'
+  liste-basi: '<#8ccefe>Ceza sebepleri:'
+  liste-satir: '<dark_gray> » <#8ccefe>%anahtar% <dark_gray>- <gray>%ad% <dark_gray>(%kademe% kademe)'
+  duyuru: '<dark_gray>[<#8ccefe>CPvP<dark_gray>] <white>%player% <gray>cezalandırıldı: <white>%sebep% <dark_gray>(%kademe%. kademe)'
+
+sebepler:
+
+  # ── Sohbet ───────────────────────────────────────────────────────────────
+  kufur:
+    ad: 'Küfür / Hakaret'
+    izin: iocore.punish.sohbet
+    kademeler:
+      - 'tempmute %player% 1h %reason% -s'
+      - 'tempmute %player% 12h %reason% -s'
+      - 'tempmute %player% 3d %reason% -s'
+      - 'tempmute %player% 7d %reason% -s'
+
+  spam:
+    ad: 'Spam / Flood'
+    izin: iocore.punish.sohbet
+    duyur: false
+    kademeler:
+      - 'tempmute %player% 30m %reason% -s'
+      - 'tempmute %player% 2h %reason% -s'
+      - 'tempmute %player% 12h %reason% -s'
+
+  reklam:
+    ad: 'Reklam'
+    izin: iocore.punish.sohbet
+    kademeler:
+      - 'tempmute %player% 1d %reason% -s'
+      - 'tempban %player% 7d %reason%'
+      - 'ban %player% %reason%'
+
+  adk:
+    ad: 'Aile Küfrü'
+    izin: iocore.punish.sohbet
+    kademeler:
+      - 'tempmute %player% 2h %reason%'
+
+  mdk:
+    ad: 'Ağır Aile Küfrü'
+    izin: iocore.punish.sohbet
+    kademeler:
+      - 'ipban %player% %reason%'
+
+  ddk:
+    ad: 'Ağır Aile Küfrü'
+    izin: iocore.punish.sohbet
+    kademeler:
+      - 'ipban %player% %reason%'
+
+  tehdit:
+    ad: 'Tehdit / Taciz'
+    izin: iocore.punish.sohbet
+    kademeler:
+      - 'tempmute %player% 1d %reason% -s'
+      - 'tempban %player% 7d %reason%'
+      - 'tempban %player% 30d %reason%'
+
+  # ── Oyun ─────────────────────────────────────────────────────────────────
+  troll:
+    ad: 'Oyun Bozma / Troll'
+    izin: iocore.punish.oyun
+    kademeler:
+      - 'kick %player% %reason%'
+      - 'tempban %player% 1d %reason%'
+      - 'tempban %player% 7d %reason%'
+
+  bug:
+    ad: 'Bug Kullanımı'
+    izin: iocore.punish.oyun
+    kademeler:
+      - 'tempban %player% 3d %reason%'
+      - 'tempban %player% 14d %reason%'
+      - 'ban %player% %reason%'
+
+  isim:
+    ad: 'Uygunsuz İsim'
+    izin: iocore.punish.oyun
+    kademeler:
+      - 'ban %player% %reason%'
+
+  # ── Hile ─────────────────────────────────────────────────────────────────
+  hile:
+    ad: 'Hile Kullanımı'
+    izin: iocore.punish.hile
+    # Ceza inmeden önce oynatılacak kill efekti. Boş bırakılırsa efekt yok.
+    efekt: banned
+    kademeler:
+      - 'tempban %player% 30d %reason%'
+      - 'ban %player% %reason%'

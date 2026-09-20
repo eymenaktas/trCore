@@ -27,7 +27,12 @@ public class TrimCommand implements CommandExecutor {
             return true;
         }
 
-        if (!player.hasPermission("armortrimer.use")) {
+        // Komut mArmorTrimer'dan devraldigi icin izni "armortrimer.use" idi;
+        // eklentinin kendi ailesindeki dugumler de kabul ediliyor. Eski kurulumlar
+        // bozulmasin diye ucu birden gecerli.
+        if (!player.hasPermission("armortrimer.use")
+                && !player.hasPermission("iocore.trim")
+                && !player.hasPermission("trcore.trim")) {
             player.sendMessage(CC.parse(plugin.getConfigManager().getTrimsConfig().getString("messages.no-perm", "&cYetkiniz yok.")));
             return true;
         }

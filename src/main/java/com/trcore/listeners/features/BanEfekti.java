@@ -181,6 +181,27 @@ public final class BanEfekti {
         });
     }
 
+    /**
+     * Oyuncu cevrimdisiyken ceza komutunu calistirir. Ecstacy kendi banini
+     * atip oyuncuyu dusurdugu icin efekt oynatilamiyor; komut yine de
+     * calisiyor ve cezayi IP banina cevirir.
+     */
+    public void cevrimdisiUygula(String ad, String kontrol) {
+        if (!plugin.getConfig().getBoolean("ban-efekti.enabled", false)) return;
+        if (plugin.getConfig().getBoolean("ban-efekti.deneme", false)) {
+            plugin.getLogger().info("Ban efekti (deneme): " + ad + " banlanmadi.");
+            return;
+        }
+        String sebep = plugin.getConfig().getString("ban-efekti.sebep", "Hile kullanımı")
+                .replace("%check%", kontrol);
+        String komut = plugin.getConfig().getString("ban-efekti.komut", "ipban %player% 30d %reason%");
+        String hazir = senderEkle(komut.replace("%player%", ad)
+                .replace("%check%", kontrol)
+                .replace("%reason%", sebep));
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), hazir);
+        plugin.getLogger().info("Ban efekti (cevrimdisi): " + ad + " -> " + hazir);
+    }
+
     private void komutlaBanla(Player oyuncu, String sebep, String kontrol) {
         String komut = plugin.getConfig().getString("ban-efekti.komut", "tempban %player% 30d %reason%");
         String hazir = komut.replace("%player%", oyuncu.getName())

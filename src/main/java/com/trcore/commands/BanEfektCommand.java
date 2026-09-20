@@ -36,13 +36,16 @@ public final class BanEfektCommand implements CommandExecutor {
             return true;
         }
 
+        String kontrol = args.length > 1 ? args[1] : "bilinmeyen";
         Player hedef = Bukkit.getPlayerExact(args[0]);
-        if (hedef == null) {
-            sender.sendMessage("Oyuncu cevrimici degil: " + args[0]);
+        if (hedef != null) {
+            plugin.getBanEfekti().calistir(hedef, kontrol);
             return true;
         }
-        String kontrol = args.length > 1 ? args[1] : "bilinmeyen";
-        plugin.getBanEfekti().calistir(hedef, kontrol);
+
+        // Ecstacy kendi cezasini uygularken oyuncuyu aninda dusuruyor; efekt
+        // oynatilamaz ama ceza komutu yine de calismali (IP banina cevirir).
+        plugin.getBanEfekti().cevrimdisiUygula(args[0], kontrol);
         return true;
     }
 }

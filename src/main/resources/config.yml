@@ -194,7 +194,7 @@ ban-efekti:
   # Ban sebebi. %check% %vl% %maxvl% kullanilabilir
   sebep: "Hile tespit edildi (%check%)"
   # Cezayi uygulayan komut. LiteBans sozdizimi; -s sessiz ceza demek.
-  komut: "tempban %player% 30d %reason%"
+  komut: "ipban %player% 30d %reason%"
   # Banlayan olarak duyuruda gorunecek ad. Bosluk kullanma: LiteBans'in
   # --sender bayragi boslukta kesilir, geri kalani sebebe karisir.
   yetkili-adi: "EcstacyAC"

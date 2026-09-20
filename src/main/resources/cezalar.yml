@@ -68,8 +68,8 @@ sebepler:
     izin: iocore.punish.sohbet
     kademeler:
       - 'tempmute %player% 1d %reason% -s'
-      - 'tempban %player% 7d %reason%'
-      - 'ban %player% %reason%'
+      - 'ipban %player% 7d %reason%'
+      - 'ipban %player% %reason%'
 
   adk:
     ad: 'Aile Küfrü'
@@ -94,8 +94,8 @@ sebepler:
     izin: iocore.punish.sohbet
     kademeler:
       - 'tempmute %player% 1d %reason% -s'
-      - 'tempban %player% 7d %reason%'
-      - 'tempban %player% 30d %reason%'
+      - 'ipban %player% 7d %reason%'
+      - 'ipban %player% 30d %reason%'
 
   # ── Oyun ─────────────────────────────────────────────────────────────────
   troll:
@@ -103,22 +103,22 @@ sebepler:
     izin: iocore.punish.oyun
     kademeler:
       - 'kick %player% %reason%'
-      - 'tempban %player% 1d %reason%'
-      - 'tempban %player% 7d %reason%'
+      - 'ipban %player% 1d %reason%'
+      - 'ipban %player% 7d %reason%'
 
   bug:
     ad: 'Bug Kullanımı'
     izin: iocore.punish.oyun
     kademeler:
-      - 'tempban %player% 3d %reason%'
-      - 'tempban %player% 14d %reason%'
-      - 'ban %player% %reason%'
+      - 'ipban %player% 3d %reason%'
+      - 'ipban %player% 14d %reason%'
+      - 'ipban %player% %reason%'
 
   isim:
     ad: 'Uygunsuz İsim'
     izin: iocore.punish.oyun
     kademeler:
-      - 'ban %player% %reason%'
+      - 'ipban %player% %reason%'
 
   # ── Hile ─────────────────────────────────────────────────────────────────
   hile:
@@ -127,5 +127,5 @@ sebepler:
     # Ceza inmeden önce oynatılacak kill efekti. Boş bırakılırsa efekt yok.
     efekt: banned
     kademeler:
-      - 'tempban %player% 30d %reason%'
-      - 'ban %player% %reason%'
+      - 'ipban %player% 30d %reason%'
+      - 'ipban %player% %reason%'
